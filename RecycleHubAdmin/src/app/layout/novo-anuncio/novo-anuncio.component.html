@@ -1,0 +1,51 @@
+<div class="container-fluid page">
+    <div class="page_box p-3 fs-2  fw-bolder">Anúncios</div>
+    <div class="page_content shadow p-3 position-relative">
+        <div class="page_content-data p-3">
+            <section class="ad_content">
+                <div class="title d-flex justify-content-between align-items-center mb-4">
+                    <div class="section_title">
+                        <div class="icon_title"><i class="ri-advertisement-fill"></i></div>
+                        <div>Novo anúncio</div>
+                    </div>
+                </div>
+                <form [formGroup]="Anuncio" class="mt-4" (ngSubmit)="PublicarAnuncio()">
+                    <div class="row mt-4">
+                        <mat-form-field class="col-5">
+                            <mat-label>Título</mat-label>
+                            <input matInput placeholder="Título do anúncio" formControlName="titulo" required>
+                        </mat-form-field>
+                        <mat-form-field class="col-4">
+                            <mat-label>Preço</mat-label>
+                            <input matInput placeholder="Valor por medida" formControlName="valor" required>
+                        </mat-form-field>
+                        <mat-form-field class="col-3">
+                            <mat-label>Unidade de medida</mat-label>
+                            <mat-select formControlName="medida" required>
+                                <mat-option>None</mat-option>
+                                <mat-option *ngFor="let medida of medidas" [value]="medida">{{medida}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-12">
+                            <mat-label>Descrição</mat-label>
+                            <textarea matInput placeholder="Descrição do anúncio" formControlName="descricao"
+                                required></textarea>
+                        </mat-form-field>
+                        <mat-label></mat-label>
+                        <div class="buttonImg d-flex align-items-center col-6">
+                            <button class="me-2" mat-raised-button type="button" (click)="fileInput.click()">Selecionar
+                                imagem</button>
+                            <input hidden (change)="onFileSelected($event)" #fileInput formControlName="img" type="file"
+                                required>
+                            <span class="">{{selectedFile?.name}}</span>
+                        </div>
+                        <div class="col-6 text-end">
+                            <button mat-button class="BtnRascunho" (click)="SalvarRascunho()">Salvar rascunho</button>
+                            <button mat-button type="submit" class="BtnPublicar">Publicar</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>

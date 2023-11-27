@@ -1,0 +1,113 @@
+<div class="container-fluid page">
+  <div class="page_box p-3 fs-2  fw-bolder text-capitalize">{{title}}</div>
+  <div class="page_content shadow p-3 position-relative">
+    <div class="page_content-data p-3">
+      <section class="ad_content">
+        <div class="title d-flex justify-content-between align-items-center">
+          <div class="section_title">
+            <div class="icon_title"><i class="ri-user-settings-fill"></i></div>
+            <div>Configurações de perfil</div>
+          </div>
+        </div>
+
+        <form [formGroup]="Empregister" class="mt-4" (ngSubmit)="HandleSubmit()">
+          <mat-stepper [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="Basicform">
+              <div formGroupName="basic">
+                <ng-template matStepLabel>Dados cadastrais</ng-template>
+                <div class="row mt-4">
+                  <mat-form-field class="col-6">
+                    <mat-label>Empresa</mat-label>
+                    <input matInput placeholder="Nome da empresa" formControlName="nome" required value="">
+                  </mat-form-field>
+                  <mat-form-field class="col-6">
+                    <mat-label>CNPJ</mat-label>
+                    <input matInput placeholder="CNPJ" formControlName="cnpj" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-7">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput placeholder="E-mail" formControlName="email" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-5">
+                    <mat-label>Senha</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                      [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  <div class="buttonImg d-flex align-items-center col-6 mb-3">
+                    <button class="me-2" mat-raised-button type="button" (click)="fileInput.click()">Selecionar
+                      imagem de perfil</button>
+                    <input hidden (change)="onFileSelected($event)" #fileInput formControlName="img" type="file"
+                      required>
+                    <span class="">{{selectedFile?.name}}</span>
+                  </div>
+                </div>
+                <div>
+                  <button mat-button matStepperNext>Avançar</button>
+                </div>
+              </div>
+            </mat-step>
+            <mat-step label="Contato" [stepControl]="Contactform">
+              <div formGroupName="contact">
+                <div class="row mt-4">
+                  <mat-form-field class="col-6">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput placeholder="Telefone" formControlName="telefone" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-6">
+                    <mat-label>Celular</mat-label>
+                    <input matInput placeholder="Celular" formControlName="celular" required>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button mat-button matStepperPrevious>Voltar</button>
+                  <button mat-button matStepperNext>Avançar</button>
+                </div>
+              </div>
+            </mat-step>
+            <mat-step [stepControl]="Addressform">
+              <div formGroupName="address">
+                <ng-template matStepLabel>Endereço</ng-template>
+                <div class="row mt-4">
+                  <mat-form-field class="col-2">
+                    <mat-label>CEP</mat-label>
+                    <input matInput placeholder="CEP" formControlName="cep" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-8">
+                    <mat-label>Logradouro</mat-label>
+                    <input matInput placeholder="Logradouro" formControlName="logradouro" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-2">
+                    <mat-label>Número</mat-label>
+                    <input matInput placeholder="numero" formControlName="numero" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-6">
+                    <mat-label>Bairro</mat-label>
+                    <input matInput placeholder="Bairro" formControlName="bairro" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-4">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput placeholder="Cidade" formControlName="cidade" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-2" required>
+                    <mat-label>UF</mat-label>
+                    <mat-select formControlName="estado" required>
+                      <mat-option>None</mat-option>
+                      <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button mat-button matStepperPrevious>Voltar</button>
+                  <button mat-button matStepperNext>Enviar</button>
+                </div>
+              </div>
+            </mat-step>
+          </mat-stepper>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

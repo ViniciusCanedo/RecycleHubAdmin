@@ -1,0 +1,102 @@
+mat-toolbar-row {
+  background-color: #0dc900;
+  color: white;
+  align-items: center;
+  padding: 10px;
+}
+
+ul {
+  position: relative;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+li {
+  list-style-type: none;
+  position: relative;
+  padding: 10px;
+}
+
+.profile-user {
+  font-size: 1.8rem;
+  background-color: rgb(189, 189, 189);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  padding: 20px;
+}
+
+li ul {
+  position: absolute;
+  color: #0dc900;
+  background-color: white;
+  right: 1.5rem;
+  margin-top: 5px;
+  padding: 5px 0;
+  box-shadow: 5px 3px 15px #9e9e9e;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  opacity: 0;
+  display: none;
+}
+
+ul,
+.user,
+ul li:hover > ul,
+ul li ul:hover {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+.dropdown li {
+  padding: 0 5px;
+  position: relative;
+}
+
+.dropdown li a {
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.dropdown li a:hover {
+  background-color: #d8d8d8;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.mat-mdc-icon-button {
+  width: fit-content;
+  height: fit-content;
+}
+
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple {
+  height: 0;
+  display: none;
+}
+
+mat-mdc-button-persistent-ripple.mdc-icon-button__ripple {
+  display: none;
+}

@@ -1,0 +1,18 @@
+<mat-toolbar>
+  <mat-toolbar-row class="justify-content-between">
+    <button mat-icon-button (click)="toggleSidebar()"><i class="ri-menu-line"></i></button>
+    <div class=" user mr-2 ml-auto">
+      <ul>
+        <li>
+          <div class="profile-user">
+            <i class="ri-user-line"></i>
+          </div>
+          <ul class="dropdown">
+            <li><a mat-list-item routerLink="/configuracoes"><i class="ri-settings-fill"> </i> Configurações</a></li>
+            <li><a mat-list-item (click)="logout()"><i class="ri-logout-box-fill"></i> Logout </a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

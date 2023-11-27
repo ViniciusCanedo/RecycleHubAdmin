@@ -1,0 +1,50 @@
+<div class="loginPainel d-flex justify-content-center align-items-center">
+    <div class="loginContainer col-4 d-flex flex-column  shadow rounded align-items-center p-5">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Logo Recycle Hub">
+        </div>
+
+        <div class="formularioLogin">
+            <form [formGroup]="Login" class="mt-5 d-flex flex-column" (ngSubmit)="efetuarLogin()">
+                <mat-form-field>
+                    <mat-label>E-mail</mat-label>
+                    <input matInput placeholder="E-mail" formControlName="email" required>
+                    <mat-icon matSuffix>person_outline</mat-icon>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Senha</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="senha" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <div class="errorMsg" *ngIf="errorMessage">
+                  <p class="error-message">{{ errorMessage }}</p>
+                </div>
+                <button type="submit" class="buttonLayout mt-4">Entrar</button>
+            </form>
+
+            <div class="text-center fs-6 my-4">OU</div>
+
+            <div class="social d-flex justify-content-between">
+                <a class="buttonSocial card rounded">
+                    <i class="ri-apple-fill"></i>
+                </a>
+                <a class="buttonSocial card rounded">
+                    <i class="ri-google-fill"></i>
+                </a>
+                <a class="buttonSocial card rounded">
+                    <i class="ri-facebook-circle-fill"></i>
+                </a>
+            </div>
+
+            <div class="registroLink mt-4">
+                <a routerLink="/cadastro" class="d-flex flex-column text-center">
+                    <span>Ainda não possui uma conta?</span>
+                    <span>Registre-se aqui.</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

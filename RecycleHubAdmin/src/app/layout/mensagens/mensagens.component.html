@@ -1,0 +1,347 @@
+<div class="container-fluid page">
+  <div class="page_box p-3 fs-2  fw-bolder">Mensagens</div>
+  <div class="page_content shadow p-3 position-relative">
+    <div class="page_content-data p-3">
+      <section class="ad_content">
+        <div class="section_title">
+          <div class="icon_title"><i class="ri-advertisement-fill"></i></div>
+          <div>Histórico de mensagens</div>
+        </div>
+
+        <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active text-secondary" id="home-tab" data-bs-toggle="tab" data-bs-target="#todas"
+              type="button" role="tab" aria-controls="home" aria-selected="true">Todas</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-secondary" id="profile-tab" data-bs-toggle="tab" data-bs-target="#lidas"
+              type="button" role="tab" aria-controls="profile" aria-selected="false">Lidas</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-secondary" id="contact-tab" data-bs-toggle="tab" data-bs-target="#nao-lidas"
+              type="button" role="tab" aria-controls="contact" aria-selected="false">Não lidas</button>
+          </li>
+        </ul>
+        <div class="tab-content mt-4" id="myTabContent">
+          <div class="tab-pane fade show active" id="todas" role="tabpanel" aria-labelledby="todas-tab">
+            <table datatable class="table table-striped table-success mt-5 table-borderless">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Celular</th>
+                  <th>E-mail</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2" (click)="modal.exibir(1)"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2" (click)="modal.exibir(2)"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane fade" id="lidas" role="tabpanel" aria-labelledby="lidas-tab">
+            <table datatable class="table table-striped table-success mt-4 table-borderless">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Celular</th>
+                  <th>E-mail</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane fade" id="nao-lidas" role="tabpanel" aria-labelledby="nao-lidas-tab">
+            <table datatable class="table table-striped table-success mt-4 table-borderless">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Celular</th>
+                  <th>E-mail</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Fulano de Tal</td>
+                  <td>(15) 99112-3456</td>
+                  <td>fulano.tal@email.com</td>
+                  <td>
+                    <button class="btn btn-success me-2"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </section>
+    </div>
+  </div>
+  <app-modal-mensagem #modal>
+    <div class="header-modal">
+      <h1>{{modal.teste.nome}}</h1>
+      <div class="modal-contact d-flex gap-4">
+        <div class="contact-data-modal">
+          <i class="ri-whatsapp-line me-2"></i>
+          <span>{{modal.teste.numero}}</span>
+        </div>
+        <div class="contact-data-modal">
+          <i class="ri-mail-line me-2"></i>
+          <span>{{modal.teste.email}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="body-modal mt-4">
+      <div class="imessage">
+        <p class="from-them">
+          {{modal.teste.mensagem}}
+        </p>
+      </div>
+    </div>
+    <div class="footer-modal d-flex justify-content-end position-absolute">
+      <button (click)="acaoPrimaria(); modal.close();"
+      class="btn btn-secondary">Fechar</button>
+    </div>
+    
+  
+  </app-modal-mensagem> 
+</div>

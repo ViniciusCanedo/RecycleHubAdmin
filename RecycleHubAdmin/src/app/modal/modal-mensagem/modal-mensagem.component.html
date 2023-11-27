@@ -1,0 +1,8 @@
+<ng-container *ngIf="mostrar">
+  <div class="modal" @modal>
+    <ng-content></ng-content>
+  </div>
+  <div (click)="close()"
+       @overlay
+       class="overlay"></div>
+</ng-container>

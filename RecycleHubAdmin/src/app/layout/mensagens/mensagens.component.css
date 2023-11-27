@@ -1,0 +1,210 @@
+.page {
+  padding: 0 1rem;
+  color: #0dc900;
+}
+
+.page_box {
+  background-color: #eeeeee;
+  margin: 0 -1rem;
+  min-height: 120px;
+}
+
+.page_content {
+  min-height: calc(100vh - 260px);
+  color: black;
+  margin-top: -2rem;
+  background-color: white;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.section_title {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  gap: 1rem;
+  font-weight: 500;
+}
+
+.section_title .icon_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #0dc900;
+  color: white;
+  width: 35px;
+  height: 35px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.table-success {
+  --bs-table-bg: rgba(13, 201, 0, 0.7);
+  --bs-table-striped-bg: rgba(17, 255, 0, 0.616);
+  --bs-table-striped-color: white;
+  --bs-table-active-bg: #bcd0c7;
+  --bs-table-active-color: #000000;
+  --bs-table-hover-bg: #c1d6cc;
+  --bs-table-hover-color: #000;
+  color: white;
+}
+
+tr {
+  vertical-align: middle;
+}
+
+th {
+  background-color: #0ed100;
+}
+
+td {
+  font-weight: 500;
+}
+
+table {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+button, p {
+  font-size: 14px;
+}
+
+p {
+  line-height: 24px;
+}
+
+.btn-primario {
+  border: none;
+  background: #051938;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  padding: 12px 24px;
+  transition: all .5s;
+}
+
+.btn-primario:hover {
+  background: #2C4770;
+}
+
+.btn-primario:active {
+  background: #7689A9;
+}
+
+.btn-secundario {
+  background: none;
+  border-radius: 4px;
+  border: none;
+  color: #0D5146;
+  cursor: pointer;
+  display: block;
+  padding: 12px 24px;
+  transition: all .5s;
+}
+
+.btn-secundario:hover {
+  background: #6CA299;
+}
+
+.imessage {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 1rem;
+  max-width: 600px;
+  padding: 0.5rem 1.5rem;
+}
+
+.imessage p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  font-size: 1.1rem;
+  max-width: 75%;
+  padding: 0.5rem .875rem;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.imessage p::before,
+.imessage p::after {
+  bottom: -0.1rem;
+  content: "";
+  height: 1rem;
+  position: absolute;
+}
+
+p.from-me {
+  align-self: flex-end;
+  background-color: #248bf5;
+  color: #fff; 
+}
+
+p.from-me::before {
+  border-bottom-left-radius: 0.8rem 0.7rem;
+  border-right: 1rem solid #248bf5;
+  right: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-me::after {
+  background-color: #fff;
+  border-bottom-left-radius: 0.5rem;
+  right: -40px;
+  transform:translate(-30px, -2px);
+  width: 10px;
+}
+
+p[class^="from-"] {
+  margin: 0.5rem 0;
+  width: fit-content;
+}
+
+
+p.from-them {
+  align-items: flex-start;
+  background-color: #e5e5ea;
+  color: #000;
+}
+
+p.from-them:before {
+  border-bottom-right-radius: 0.8rem 0.7rem;
+  border-left: 1rem solid #e5e5ea;
+  left: -0.35rem;
+  transform: translate(0, -0.1rem);
+}
+
+p.from-them::after {
+  background-color: #fff;
+  border-bottom-right-radius: 0.5rem;
+  left: 20px;
+  transform: translate(-30px, -2px);
+  width: 10px;
+}
+
+
+.margin-b_none {
+  margin-bottom: 0 !important;
+}
+
+.margin-b_one {
+  margin-bottom: 1rem !important;
+}
+
+.margin-t_one {
+  margin-top: 1rem !important;
+}
+
+.footer-modal{
+  right: 20px;
+  bottom: 20px;
+}

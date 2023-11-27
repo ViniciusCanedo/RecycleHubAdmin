@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+mat-drawer {
+  width: 260px;
+  background-color: #0dc900;
+}
+
+mat-drawer-container {
+  height: 100vh;
+}
+
+.mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+app-header-admin {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
