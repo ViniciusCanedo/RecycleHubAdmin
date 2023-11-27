@@ -10,7 +10,10 @@ export class CadastroService {
 
   constructor(private http: HttpClient) {}
 
-  cadastro(empresaData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/empresa/cadastro`, empresaData);
+  cadastrarEmpresa(dados: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/empresa/cadastro`, dados);
+  }
+  cadastrarEndereco(cnpj: any, address: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/endereco/${cnpj}/cadastro/`, address);
   }
 }

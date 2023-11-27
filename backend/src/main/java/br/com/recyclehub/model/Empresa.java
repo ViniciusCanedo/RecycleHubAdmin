@@ -11,9 +11,10 @@ import lombok.Data;
 @Table(name = "Empresa")
 @Data
 public class Empresa {
+    
     @Id
     @Column(name = "EMP_CNPJ", length = 14)
-    private String cnpj;
+    private long cnpj;
 
     @Column(name = "EMP_NOME", length = 100)
     private String nome;
@@ -30,17 +31,20 @@ public class Empresa {
     @Column(name = "EMP_TELEFONE", length = 20)
     private String telefone;
 
+    @Column(name = "EMP_CELULAR", length = 20)
+    private String celular;
+
     @Column(name = "EMP_DESCRICAO", length = 255)
     private String descricao;
 
-    @Column(name = "EMP_STATUS", length = 20)
+    @Column(name = "EMP_STATUS", length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'Não aprovada'")
     private String status;
 
     @Column(name = "EMP_IMG", length = 255)
     private String img;
 
     // Getters
-    public String getCnpj() {
+    public long getCnpj() {
         return cnpj;
     }
 
@@ -64,6 +68,10 @@ public class Empresa {
         return telefone;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -78,7 +86,7 @@ public class Empresa {
 
     // Setters
 
-    public void setCnpj(String cnpj) {
+    public void setCnpj(long cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -100,6 +108,10 @@ public class Empresa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
     public void setDescricao(String descricao) {
