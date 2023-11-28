@@ -27,7 +27,7 @@ public class Produto {
     private String descricao;
 
     @Column(name = "STATUS_ANUNCIO", nullable = false, length = 10)
-    private String statusAnuncio;
+    private String status;
 
     @Column(name = "PROD_IMG", length = 255)
     private String imagem;
@@ -35,11 +35,8 @@ public class Produto {
     @Column(name = "VISUALIZACOES", nullable = false)
     private Integer visualizacoes = 0;
 
-    @Column(name = "EMP_CNPJ", nullable = false)
-    private String empresaCnpj;
-
     @ManyToOne
-    @JoinColumn(name = "EMP_CNPJ", insertable = false, updatable = false)
+    @JoinColumn(name = "EMP_CNPJ", referencedColumnName = "EMP_CNPJ")
     private Empresa empresa;
 
     // Getters e Setters
@@ -88,12 +85,12 @@ public class Produto {
     }
 
     // Getter and setter for statusAnuncio
-    public String getStatusAnuncio() {
-        return statusAnuncio;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatusAnuncio(String statusAnuncio) {
-        this.statusAnuncio = statusAnuncio;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     // Getter and setter for imagem
@@ -114,13 +111,9 @@ public class Produto {
         this.visualizacoes = visualizacoes;
     }
 
-    // Getter and setter for empresaCnpj
-    public String getEmpresaCnpj() {
-        return empresaCnpj;
-    }
 
-    public void setEmpresaCnpj(String empresaCnpj) {
-        this.empresaCnpj = empresaCnpj;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     // Getter and setter for empresa
@@ -128,7 +121,4 @@ public class Produto {
         return empresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
 }

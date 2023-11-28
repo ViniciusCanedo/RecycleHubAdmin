@@ -24,7 +24,7 @@ public class ProdutoController {
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastrarProduto(@RequestBody Produto novoProduto) {
         try {
-            // Salvando a nova empresa
+            System.out.println("Objeto Empresa recebido no cadastro: " + novoProduto.toString());
             produtoDao.save(novoProduto);
             return ResponseEntity.status(HttpStatus.CREATED).body("Produto cadastrado com sucesso");
 

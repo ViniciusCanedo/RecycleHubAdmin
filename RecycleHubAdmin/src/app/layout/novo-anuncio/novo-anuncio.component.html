@@ -13,17 +13,17 @@
                     <div class="row mt-4">
                         <mat-form-field class="col-5">
                             <mat-label>Título</mat-label>
-                            <input matInput placeholder="Título do anúncio" formControlName="titulo" required>
+                            <input matInput placeholder="Título do anúncio" formControlName="nome" required>
                         </mat-form-field>
                         <mat-form-field class="col-4">
                             <mat-label>Preço</mat-label>
-                            <input matInput placeholder="Valor por medida" formControlName="valor" required>
+                            <input matInput placeholder="Valor por medida" formControlName="preco" required>
                         </mat-form-field>
                         <mat-form-field class="col-3">
                             <mat-label>Unidade de medida</mat-label>
-                            <mat-select formControlName="medida" required>
+                            <mat-select formControlName="unidadeMedida" required>
                                 <mat-option>None</mat-option>
-                                <mat-option *ngFor="let medida of medidas" [value]="medida">{{medida}}</mat-option>
+                                <mat-option *ngFor="let unidadeMedida of unidadeMedida" [value]="unidadeMedida">{{unidadeMedida}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         <mat-form-field class="col-12">
@@ -35,7 +35,7 @@
                         <div class="buttonImg d-flex align-items-center col-6">
                             <button class="me-2" mat-raised-button type="button" (click)="fileInput.click()">Selecionar
                                 imagem</button>
-                            <input hidden (change)="onFileSelected($event)" #fileInput formControlName="img" type="file"
+                            <input hidden (change)="onFileSelected($event)" #fileInput formControlName="imagem" type="file"
                                 required>
                             <span class="">{{selectedFile?.name}}</span>
                         </div>
