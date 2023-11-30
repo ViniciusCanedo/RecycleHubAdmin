@@ -7,9 +7,9 @@ import {
   FormGroup,
 } from '@angular/forms';
 
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-
 import { ProdutoService } from '../../services/produto.service';
+
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -37,6 +37,11 @@ export class NovoAnuncioComponent implements OnInit {
     unidadeMedida: this.builder.control(''),
     descricao: this.builder.control(''),
   });
+
+  const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+    if (!isCookieExists) {
+      this.router.navigate(['/login']);
+    }
   }
 
 

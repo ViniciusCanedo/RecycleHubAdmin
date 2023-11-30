@@ -69,6 +69,10 @@ export class ConfiguracoesComponent implements OnInit {
     if (this.routerUrl === '/cadastro') {
       this.botaoTexto = 'Cadastrar';
     } else if (this.routerUrl === '/configuracoes') {
+      const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+      if (!isCookieExists) {
+        this.router.navigate(['/login']);
+      }
       this.botaoTexto = 'Alterar';
     }
   }

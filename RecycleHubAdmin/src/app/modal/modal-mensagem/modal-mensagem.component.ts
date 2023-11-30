@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-modal-mensagem',
@@ -27,6 +29,18 @@ import { trigger, style, animate, transition } from '@angular/animations';
   ]
 })
 export class ModalMensagemComponent {
+  constructor(
+    private cookieService: CookieService,
+    private router: Router,
+  ) {}
+
+  ngOnInit(): void {
+    const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+    if (!isCookieExists) {
+      this.router.navigate(['/login']);
+    }
+  }
+  
   mostrar: boolean = false;
   teste = {
     nome : "",

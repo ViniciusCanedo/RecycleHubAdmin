@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Produto } from '../../models/produto.model';
 import { ProdutoService } from '../../services/produto.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-anuncios',
@@ -14,10 +15,14 @@ export class AnunciosComponent {
   empresaLogadaString = this.cookieService.get('cookieEmpresa');
   empresaLogada: any = JSON.parse(this.empresaLogadaString || '{}');
 
-  constructor(private produtoService: ProdutoService, private cookieService: CookieService) { }
+  constructor(private produtoService: ProdutoService, private cookieService: CookieService, private router: Router) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
+    const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+    if (!isCookieExists) {
+      this.router.navigate(['/login']);
+    }
   }
 
   carregarProdutos(): void {
