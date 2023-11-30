@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Produto } from '../../models/produto.model';
 import { ProdutoService } from '../../services/produto.service';
-import { EmpresaService } from '../../services/empresa.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-anuncios',
@@ -9,10 +9,12 @@ import { EmpresaService } from '../../services/empresa.service';
   styleUrls: ['./anuncios.component.css']
 })
 export class AnunciosComponent {
-  produtos: Produto[] = [];
-  cnpjEmpresa = this.empresaService.obterDadosEmpresa().cnpj;
 
-  constructor(private produtoService: ProdutoService, private empresaService: EmpresaService) { }
+  produtos: Produto[] = [];
+  empresaLogadaString = this.cookieService.get('cookieEmpresa');
+  empresaLogada: any = JSON.parse(this.empresaLogadaString || '{}');
+
+  constructor(private produtoService: ProdutoService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
@@ -20,7 +22,7 @@ export class AnunciosComponent {
 
   carregarProdutos(): void {
     console.log(this.produtos)
-    this.produtoService.getProdutosByCnpj(this.cnpjEmpresa)
+    this.produtoService.getProdutosByCnpj(this.empresaLogada.cnpj)
       .subscribe(
         produtos => {
           this.produtos = produtos;

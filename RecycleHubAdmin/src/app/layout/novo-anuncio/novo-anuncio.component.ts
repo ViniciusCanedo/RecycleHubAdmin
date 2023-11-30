@@ -10,7 +10,7 @@ import {
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import { ProdutoService } from '../../services/produto.service';
-import { EmpresaService } from '../../services/empresa.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class NovoAnuncioComponent implements OnInit {
     private builder: FormBuilder,
     private router: Router,
     private produtoService: ProdutoService,
-    private empresaService: EmpresaService,
+    private cookieService: CookieService
     ) {}
 
   ngOnInit(): void {
@@ -43,46 +43,57 @@ export class NovoAnuncioComponent implements OnInit {
 
   errorMessage = '';
   PublicarAnuncio() {
-    const produto = this.Anuncio.value;
-    produto.status = 'Publicado';
-    produto.empresa = this.empresaService.obterDadosEmpresa()
-    console.log
-    console.log(produto)
-    this.produtoService.cadastrarProduto(produto).subscribe(
-      produtoResponse => {
-        this.router.navigate(['/']);
-      },
-      error => {
-        this.errorMessage = 'Erro ao cadastrar produto';
-      },
-    )
+    if (this.Anuncio.valid) {
+      const produto = this.Anuncio.value;
+      const empresaLogadaString = this.cookieService.get('cookieEmpresa');
+      const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
+
+      produto.status = 'Publicado';
+      produto.empresa = empresaLogada
+      this.produtoService.cadastrarProduto(produto).subscribe(
+        response => {
+          if (response.status === 200 || response.status === 201) {
+            this.router.navigate(['/anuncios']);
+          }
+        },
+        error => {
+          if (error.status === 200 || error.status === 201) {
+            this.router.navigate(['/anuncios']);
+          }
+          //erro
+        }
+      );
+    }
   }
 
   RascunhoAnuncio() {
-    const produto = this.Anuncio.value;
-    produto.status = 'Rascunho';
-    produto.empresa = this.empresaService.obterDadosEmpresa()
-    console.log(produto)
-    this.produtoService.cadastrarProduto(produto).subscribe(
-      produtoResponse => {
-        this.router.navigate(['/']);
-      },
-      error => {
-        this.errorMessage = 'Erro ao cadastrar produto';
-      },
-    )
+    if (this.Anuncio.valid) {
+      const produto = this.Anuncio.value;
+      const empresaLogadaString = this.cookieService.get('cookieEmpresa');
+      const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
+
+      produto.status = 'Rascunho';
+      produto.empresa = empresaLogada
+      this.produtoService.cadastrarProduto(produto).subscribe(
+        response => {
+          if (response.status === 200 || response.status === 201) {
+            this.router.navigate(['/anuncios']);
+          }
+        },
+        error => {
+          if (error.status === 200 || error.status === 201) {
+            this.router.navigate(['/anuncios']);
+          }
+          //erro
+        }
+      );
+    }
   }
 
   selectedFile: any = null;
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0] ?? null;
-  }
-
-  SalvarRascunho() {
-    if (this.Anuncio.valid) {
-      console.log('Salvo como rascunho');
-    }
   }
 
   unidadeMedida: string[] = ['KG', 'G', 'Unidade'];

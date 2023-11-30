@@ -9,7 +9,7 @@
                         <div>Novo anúncio</div>
                     </div>
                 </div>
-                <form [formGroup]="Anuncio" class="mt-4" (ngSubmit)="PublicarAnuncio()">
+                <form [formGroup]="Anuncio" class="mt-4">
                     <div class="row mt-4">
                         <mat-form-field class="col-5">
                             <mat-label>Título</mat-label>
@@ -40,8 +40,8 @@
                             <span class="">{{selectedFile?.name}}</span>
                         </div>
                         <div class="col-6 text-end">
-                            <button mat-button class="BtnRascunho" (click)="SalvarRascunho()">Salvar rascunho</button>
-                            <button mat-button type="submit" class="BtnPublicar">Publicar</button>
+                            <button mat-button class="BtnRascunho" (click)="RascunhoAnuncio()">Salvar rascunho</button>
+                            <button mat-button type="submit" class="BtnPublicar" (click)="PublicarAnuncio()">Publicar</button>
                         </div>
                     </div>
                 </form>
