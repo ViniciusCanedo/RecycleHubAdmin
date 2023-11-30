@@ -26,7 +26,7 @@ import { EmpresaService } from '../../services/empresa.service';
 export class ConfiguracoesComponent implements OnInit {
   Empregister!: FormGroup;
   routePath = this.route.snapshot.routeConfig?.path;
-  title = this.routePath;
+  title = '';
   botaoTexto: string = 'Enviar';
   routerUrl: string = '';
 
@@ -59,7 +59,6 @@ export class ConfiguracoesComponent implements OnInit {
       address: this.builder.group({
         cep: [empresaLogada?.endereco?.cep || ''],
         logradouro: [empresaLogada?.endereco?.logradouro || ''],
-        rua: [empresaLogada?.endereco?.rua || ''],
         numero: [empresaLogada?.endereco?.numero || ''],
         bairro: [empresaLogada?.endereco?.bairro || ''],
         cidade: [empresaLogada?.endereco?.cidade || ''],
@@ -71,8 +70,10 @@ export class ConfiguracoesComponent implements OnInit {
 
     if (this.routerUrl === '/cadastro') {
       this.botaoTexto = 'Cadastrar';
+      this.title = 'Cadastro';
     } else if (this.routerUrl === '/configuracoes') {
       this.botaoTexto = 'Alterar';
+      this.title = 'Configurações';
     }
   }
   errorMessage = '';
@@ -80,38 +81,38 @@ export class ConfiguracoesComponent implements OnInit {
     const { basic, contact, address } = this.Empregister.value;
     const { cep, ...rest } = address;
 
-  // Criando um novo objeto sem 'cep' em 'address'
+    // Criando um novo objeto sem 'cep' em 'address'
     const dadosEndereco = rest;
     const dadosEmpresa = {
       ...basic,
       ...contact,
       cep,
-    }
-    console.log(dadosEmpresa)
-    console.log(dadosEndereco)
-    console.log(basic.cnpj)
+    };
+    console.log(dadosEmpresa);
+    console.log(dadosEndereco);
+    console.log(basic.cnpj);
     this.cadastroService.cadastrarEmpresa(dadosEmpresa).subscribe(
-      empresaResponse => {
-        this.cadastroService.cadastrarEndereco(basic.cnpj, dadosEndereco).subscribe(
-          enderecoResponse => {
-            // Aqui você pode lidar com a resposta do cadastro de endereço, se necessário
-            this.router.navigate(['/']); // Navega para a página inicial após o cadastro bem-sucedido
-          },
-          error => {
-            this.errorMessage = 'Erro ao cadastrar endereço';
-          }
-        );
+      (empresaResponse) => {
+        this.cadastroService
+          .cadastrarEndereco(basic.cnpj, dadosEndereco)
+          .subscribe(
+            (enderecoResponse) => {
+              // Aqui você pode lidar com a resposta do cadastro de endereço, se necessário
+              this.router.navigate(['/']); // Navega para a página inicial após o cadastro bem-sucedido
+            },
+            (error) => {
+              this.errorMessage = 'Erro ao cadastrar endereço';
+            }
+          );
       },
-      error => {
+      (error) => {
         this.errorMessage = 'Erro ao cadastrar empresa';
       }
     );
-    console.log(this.errorMessage)
+    console.log(this.errorMessage);
   }
 
-  efetuarEdicao(){
-
-  }
+  efetuarEdicao() {}
 
   hide = true;
 
@@ -166,14 +167,13 @@ export class ConfiguracoesComponent implements OnInit {
   HandleSubmit() {
     if (this.Empregister.valid) {
       if (this.Empregister.valid) {
-            // Enviar os dados para o backend
-            if (this.routerUrl === '/cadastro') {
-              this.efetuarCadastro(); // Função para cadastrar
-            } else if (this.routerUrl === '/configuracoes') {
-              this.efetuarEdicao(); // Função para alterar
-            }
+        // Enviar os dados para o backend
+        if (this.routerUrl === '/cadastro') {
+          this.efetuarCadastro(); // Função para cadastrar
+        } else if (this.routerUrl === '/configuracoes') {
+          this.efetuarEdicao(); // Função para alterar
         }
       }
     }
   }
-
+}
