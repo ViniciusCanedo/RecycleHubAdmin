@@ -29,9 +29,6 @@ public class Mensagem {
     @Column(name = "STATUS_MENSAGEM", nullable = false, length = 20)
     private String statusMensagem;
 
-    @Column(name = "PROD_ID", nullable = false)
-    private Long produtoId;
-
     @ManyToOne
     @JoinColumn(name = "PROD_ID", insertable = false, updatable = false)
     private Produto produto;
@@ -85,14 +82,6 @@ public class Mensagem {
         this.statusMensagem = statusMensagem;
     }
 
-    public Long getProdutoId() {
-        return produtoId;
-    }
-
-    public void setProdutoId(Long produtoId) {
-        this.produtoId = produtoId;
-    }
-
     public Produto getProduto() {
         return produto;
     }
@@ -100,6 +89,4 @@ public class Mensagem {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
-    // ...
 }
