@@ -25,7 +25,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class ConfiguracoesComponent implements OnInit {
   Empregister!: FormGroup;
   routePath = this.route.snapshot.routeConfig?.path;
-  title = this.routePath;
+  title = '';
   botaoTexto: string = 'Enviar';
   routerUrl: string = '';
 
@@ -68,12 +68,14 @@ export class ConfiguracoesComponent implements OnInit {
 
     if (this.routerUrl === '/cadastro') {
       this.botaoTexto = 'Cadastrar';
+      this.title = 'Cadastro';
     } else if (this.routerUrl === '/configuracoes') {
       const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
       if (!isCookieExists) {
         this.router.navigate(['/login']);
       }
       this.botaoTexto = 'Alterar';
+      this.title = 'Configurações';
     }
   }
   efetuarCadastro() {
@@ -84,41 +86,42 @@ export class ConfiguracoesComponent implements OnInit {
       ...basic,
       ...contact,
       cep,
-    }
+    };
     this.cadastroService.cadastrarEmpresa(dadosEmpresa).subscribe(
       (result: any) => {
         if (result.status === 200 || result.status === 201) {
-          this.cadastroService.cadastrarEndereco(basic.cnpj, dadosEndereco).subscribe(
+          this.cadastroService
+            .cadastrarEndereco(basic.cnpj, dadosEndereco)
+            .subscribe(
+              (result2: any) => {
+                if (result2.status === 200 || result2.status === 201) {
+                  this.router.navigate(['/login']);
+                }
+              },
+              (error: any) => {}
+            );
+        } else {
+        }
+      },
+      (error: any) => {
+        console.log('Erro ao cadastrar a empresa:', error);
+        this.cadastroService
+          .cadastrarEndereco(basic.cnpj, dadosEndereco)
+          .subscribe(
             (result2: any) => {
               if (result2.status === 200 || result2.status === 201) {
                 this.router.navigate(['/login']);
               }
             },
             (error: any) => {
-            }
-          );
-        } else {
-        }
-      },
-      (error: any) => {
-        console.log("Erro ao cadastrar a empresa:", error);
-        this.cadastroService.cadastrarEndereco(basic.cnpj, dadosEndereco).subscribe(
-          (result2: any) => {
-            if (result2.status === 200 || result2.status === 201) {
               this.router.navigate(['/login']);
             }
-          },
-          (error: any) => {
-            this.router.navigate(['/login']);
-          }
-        );
+          );
       }
     );
   }
 
-  efetuarEdicao(){
-
-  }
+  efetuarEdicao() {}
 
   hide = true;
 
@@ -172,13 +175,12 @@ export class ConfiguracoesComponent implements OnInit {
 
   HandleSubmit() {
     if (this.Empregister.valid) {
-          // Enviar os dados para o backend
-          if (this.routerUrl === '/cadastro') {
-            this.efetuarCadastro(); // Função para cadastrar
-          } else if (this.routerUrl === '/configuracoes') {
-            this.efetuarEdicao(); // Função para alterar
-          }
+      // Enviar os dados para o backend
+      if (this.routerUrl === '/cadastro') {
+        this.efetuarCadastro(); // Função para cadastrar
+      } else if (this.routerUrl === '/configuracoes') {
+        this.efetuarEdicao(); // Função para alterar
       }
     }
   }
-
+}
