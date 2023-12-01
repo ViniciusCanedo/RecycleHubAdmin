@@ -57,6 +57,7 @@ export class ConfiguracoesComponent implements OnInit {
       address: this.builder.group({
         cep: [empresaLogada?.endereco?.cep || ''],
         logradouro: [empresaLogada?.endereco?.logradouro || ''],
+        complemento: [empresaLogada?.endereco?.complemento || ''],
         numero: [empresaLogada?.endereco?.numero || ''],
         bairro: [empresaLogada?.endereco?.bairro || ''],
         cidade: [empresaLogada?.endereco?.cidade || ''],

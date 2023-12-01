@@ -21,7 +21,7 @@ public class Endereco {
     private String cidade;
 
     @Column(name = "END_RUA", nullable = false, length = 255)
-    private String rua;
+    private String logradouro;
 
     @Column(name = "END_NUMERO", nullable = false)
     private int numero;
@@ -58,12 +58,12 @@ public class Endereco {
         this.cidade = cidade;
     }
 
-    public String getRua() {
-        return rua;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public int getNumero() {
