@@ -5,8 +5,8 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
-import { EmpresaService } from '../../services/empresa.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +16,17 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   Login!: FormGroup;
 
-  constructor(private loginService: LoginService, private router: Router, private builder: FormBuilder, private empresaService: EmpresaService) {}
+  constructor(private loginService: LoginService, private router: Router, private builder: FormBuilder, private cookieService: CookieService) {}
 
   ngOnInit(): void {
     this.Login = this.builder.group({
       email: this.builder.control('', Validators.required),
       senha: this.builder.control('', Validators.required),
     });
+    const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+    if (isCookieExists) {
+      this.router.navigate(['/']);
+    }
   }
 
   errorMessage = '';
@@ -33,7 +37,9 @@ export class LoginComponent implements OnInit {
     this.loginService.login(email, senha).subscribe(
       response => {
         if (response.message === 'Autenticação bem-sucedida') {
-          this.empresaService.salvarDadosEmpresa(response.dadosEmpresa);
+          const empresaDataString = JSON.stringify(response.dadosEmpresa);
+          this.cookieService.set('cookieEmpresa', empresaDataString);
+          console.log(this.cookieService.get('cookieEmpresa'))
           this.router.navigate(['/']);
         } else {
           this.errorMessage = 'Credenciais inválidas';

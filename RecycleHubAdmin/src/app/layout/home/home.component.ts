@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  constructor(
+    private cookieService: CookieService,
+    private router: Router,
+  ) {}
 
+  ngOnInit(): void {
+    const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+    if (!isCookieExists) {
+      this.router.navigate(['/login']);
+    }
+  }
 }

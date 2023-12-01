@@ -14,9 +14,8 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { event } from 'jquery';
 
-import { LoginService } from '../../services/login.service';
 import { CadastroService } from '../../services/cadastro.service';
-import { EmpresaService } from '../../services/empresa.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-configuracoes',
@@ -34,16 +33,14 @@ export class ConfiguracoesComponent implements OnInit {
     private builder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private loginService: LoginService,
     private cadastroService: CadastroService,
-    private empresaService: EmpresaService
+    private cookieService: CookieService
   ) {}
   isLinear = true;
 
   ngOnInit(): void {
-    const empresaLogada = this.empresaService.obterDadosEmpresa();
-    console.log('a');
-    console.log(empresaLogada);
+    const empresaLogadaString = this.cookieService.get('cookieEmpresa');
+    const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
 
     this.Empregister = this.builder.group({
       basic: this.builder.group({
@@ -51,6 +48,7 @@ export class ConfiguracoesComponent implements OnInit {
         cnpj: [empresaLogada?.cnpj || ''],
         email: [empresaLogada?.email || ''],
         senha: [empresaLogada?.senha || ''],
+        img: [empresaLogada?.img || ''],
       }),
       contact: this.builder.group({
         telefone: [empresaLogada?.contato?.telefone || ''],
@@ -72,44 +70,55 @@ export class ConfiguracoesComponent implements OnInit {
       this.botaoTexto = 'Cadastrar';
       this.title = 'Cadastro';
     } else if (this.routerUrl === '/configuracoes') {
+      const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+      if (!isCookieExists) {
+        this.router.navigate(['/login']);
+      }
       this.botaoTexto = 'Alterar';
       this.title = 'Configurações';
     }
   }
-  errorMessage = '';
   efetuarCadastro() {
     const { basic, contact, address } = this.Empregister.value;
     const { cep, ...rest } = address;
-
-    // Criando um novo objeto sem 'cep' em 'address'
     const dadosEndereco = rest;
     const dadosEmpresa = {
       ...basic,
       ...contact,
       cep,
     };
-    console.log(dadosEmpresa);
-    console.log(dadosEndereco);
-    console.log(basic.cnpj);
     this.cadastroService.cadastrarEmpresa(dadosEmpresa).subscribe(
-      (empresaResponse) => {
+      (result: any) => {
+        if (result.status === 200 || result.status === 201) {
+          this.cadastroService
+            .cadastrarEndereco(basic.cnpj, dadosEndereco)
+            .subscribe(
+              (result2: any) => {
+                if (result2.status === 200 || result2.status === 201) {
+                  this.router.navigate(['/login']);
+                }
+              },
+              (error: any) => {}
+            );
+        } else {
+        }
+      },
+      (error: any) => {
+        console.log('Erro ao cadastrar a empresa:', error);
         this.cadastroService
           .cadastrarEndereco(basic.cnpj, dadosEndereco)
           .subscribe(
-            (enderecoResponse) => {
-              // Aqui você pode lidar com a resposta do cadastro de endereço, se necessário
-              this.router.navigate(['/']); // Navega para a página inicial após o cadastro bem-sucedido
+            (result2: any) => {
+              if (result2.status === 200 || result2.status === 201) {
+                this.router.navigate(['/login']);
+              }
             },
-            (error) => {
-              this.errorMessage = 'Erro ao cadastrar endereço';
+            (error: any) => {
+              this.router.navigate(['/login']);
             }
           );
-      },
-      (error) => {
-        this.errorMessage = 'Erro ao cadastrar empresa';
       }
     );
-    console.log(this.errorMessage);
   }
 
   efetuarEdicao() {}
@@ -166,13 +175,11 @@ export class ConfiguracoesComponent implements OnInit {
 
   HandleSubmit() {
     if (this.Empregister.valid) {
-      if (this.Empregister.valid) {
-        // Enviar os dados para o backend
-        if (this.routerUrl === '/cadastro') {
-          this.efetuarCadastro(); // Função para cadastrar
-        } else if (this.routerUrl === '/configuracoes') {
-          this.efetuarEdicao(); // Função para alterar
-        }
+      // Enviar os dados para o backend
+      if (this.routerUrl === '/cadastro') {
+        this.efetuarCadastro(); // Função para cadastrar
+      } else if (this.routerUrl === '/configuracoes') {
+        this.efetuarEdicao(); // Função para alterar
       }
     }
   }

@@ -24,18 +24,9 @@
             </thead>
 
             <tbody>
-              <tr>
-                <td>Produto 1</td>
-                <td>Rascunho</td>
-                <td>
-                  <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                  <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                  <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-                </td>
-              </tr>
-              <tr *ngFor="let produto of produtos"> <!-- Itera sobre cada produto na lista -->
-                <td>{{ produto.nome }}</td> <!-- Exibe o nome do produto -->
-                <td>{{ produto.status }}</td> <!-- Exibe o status do produto -->
+              <tr *ngFor="let produto of produtos">
+                <td>{{ produto.nome }}</td>
+                <td>{{ produto.status }}</td>
                 <td>
                   <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
                   <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
