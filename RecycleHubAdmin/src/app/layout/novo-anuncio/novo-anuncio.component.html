@@ -11,19 +11,28 @@
                 </div>
                 <form [formGroup]="Anuncio" class="mt-4">
                     <div class="row mt-4">
-                        <mat-form-field class="col-5">
+                        <mat-form-field class="col-4">
                             <mat-label>Título</mat-label>
                             <input matInput placeholder="Título do anúncio" formControlName="nome" required>
                         </mat-form-field>
-                        <mat-form-field class="col-4">
+                        <mat-form-field class="col-2">
                             <mat-label>Preço</mat-label>
                             <input matInput placeholder="Valor por medida" formControlName="preco" required>
+                        </mat-form-field>
+                        <mat-form-field class="col-3">
+                            <mat-label>Categoria</mat-label>
+                            <mat-select formControlName="categoria" required>
+                                <mat-option>None</mat-option>
+                                <mat-option *ngFor="let categoria of categoria"
+                                    [value]="categoria">{{categoria}}</mat-option>
+                            </mat-select>
                         </mat-form-field>
                         <mat-form-field class="col-3">
                             <mat-label>Unidade de medida</mat-label>
                             <mat-select formControlName="unidadeMedida" required>
                                 <mat-option>None</mat-option>
-                                <mat-option *ngFor="let unidadeMedida of unidadeMedida" [value]="unidadeMedida">{{unidadeMedida}}</mat-option>
+                                <mat-option *ngFor="let unidadeMedida of unidadeMedida"
+                                    [value]="unidadeMedida">{{unidadeMedida}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         <mat-form-field class="col-12">
@@ -35,13 +44,14 @@
                         <div class="buttonImg d-flex align-items-center col-6">
                             <button class="me-2" mat-raised-button type="button" (click)="fileInput.click()">Selecionar
                                 imagem</button>
-                            <input hidden (change)="onFileSelected($event)" #fileInput formControlName="imagem" type="file"
-                                required>
+                            <input hidden (change)="onFileSelected($event)" #fileInput formControlName="imagem"
+                                type="file" required>
                             <span class="">{{selectedFile?.name}}</span>
                         </div>
                         <div class="col-6 text-end">
                             <button mat-button class="BtnRascunho" (click)="RascunhoAnuncio()">Salvar rascunho</button>
-                            <button mat-button type="submit" class="BtnPublicar" (click)="PublicarAnuncio()">Publicar</button>
+                            <button mat-button type="submit" class="BtnPublicar"
+                                (click)="PublicarAnuncio()">Publicar</button>
                         </div>
                     </div>
                 </form>

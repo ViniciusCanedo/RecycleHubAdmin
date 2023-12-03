@@ -12,7 +12,6 @@ import { ProdutoService } from '../../services/produto.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
-
 @Component({
   selector: 'app-novo-anuncio',
   templateUrl: './novo-anuncio.component.html',
@@ -25,26 +24,25 @@ export class NovoAnuncioComponent implements OnInit {
     private router: Router,
     private produtoService: ProdutoService,
     private cookieService: CookieService
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     const produto = this.produtoService.obterDadosProduto();
 
     this.Anuncio = this.builder.group({
-    imagem: this.builder.control(''),
-    nome: this.builder.control(''),
-    preco: this.builder.control(''),
-    unidadeMedida: this.builder.control(''),
-    descricao: this.builder.control(''),
-  });
+      imagem: this.builder.control(''),
+      nome: this.builder.control(''),
+      preco: this.builder.control(''),
+      categoria: this.builder.control(''),
+      unidadeMedida: this.builder.control(''),
+      descricao: this.builder.control(''),
+    });
 
-  const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+    const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
     if (!isCookieExists) {
       this.router.navigate(['/login']);
     }
   }
-
-
 
   errorMessage = '';
   PublicarAnuncio() {
@@ -54,14 +52,14 @@ export class NovoAnuncioComponent implements OnInit {
       const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
 
       produto.status = 'Publicado';
-      produto.empresa = empresaLogada
+      produto.empresa = empresaLogada;
       this.produtoService.cadastrarProduto(produto).subscribe(
-        response => {
+        (response) => {
           if (response.status === 200 || response.status === 201) {
             this.router.navigate(['/anuncios']);
           }
         },
-        error => {
+        (error) => {
           if (error.status === 200 || error.status === 201) {
             this.router.navigate(['/anuncios']);
           }
@@ -78,14 +76,14 @@ export class NovoAnuncioComponent implements OnInit {
       const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
 
       produto.status = 'Rascunho';
-      produto.empresa = empresaLogada
+      produto.empresa = empresaLogada;
       this.produtoService.cadastrarProduto(produto).subscribe(
-        response => {
+        (response) => {
           if (response.status === 200 || response.status === 201) {
             this.router.navigate(['/anuncios']);
           }
         },
-        error => {
+        (error) => {
           if (error.status === 200 || error.status === 201) {
             this.router.navigate(['/anuncios']);
           }
@@ -102,4 +100,5 @@ export class NovoAnuncioComponent implements OnInit {
   }
 
   unidadeMedida: string[] = ['KG', 'G', 'Unidade'];
+  categoria: string[] = ['Metal', 'Vidro', 'Plástico'];
 }
