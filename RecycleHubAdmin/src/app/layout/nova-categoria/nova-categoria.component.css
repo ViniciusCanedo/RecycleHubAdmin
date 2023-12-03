@@ -1,0 +1,80 @@
+.page {
+  padding: 0 1rem;
+  color: #0dc900;
+}
+
+.page_box {
+  background-color: #eeeeee;
+  margin: 0 -1rem;
+  min-height: 120px;
+}
+
+.page_content {
+  min-height: calc(100vh - 260px);
+  color: black;
+  margin-top: -2rem;
+  background-color: white;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.section_title {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  gap: 1rem;
+  font-weight: 500;
+}
+
+.section_title .icon_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #0dc900;
+  color: white;
+  width: 35px;
+  height: 35px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.BtnPublicar {
+  align-items: center;
+  background-color: #0dc900;
+  height: 35px;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+  margin-left: 8px;
+  color: #eeeeee !important;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.BtnPublicar:hover {
+  background-color: #0ba800;
+}
+
+.BtnRascunho {
+  align-items: center;
+  background-color: #d3d3d3;
+  height: 35px;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+  color: #161616 !important;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.BtnRascunho:hover {
+  background-color: #a1a1a1;
+}

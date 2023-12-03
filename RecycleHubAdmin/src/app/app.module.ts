@@ -36,7 +36,10 @@ import { LayoutComponent } from './layout/layout.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ModalMensagemComponent } from './modal/modal-mensagem/modal-mensagem.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { PainelComponent } from './layout/painel/painel.component';
+import { EmpresasComponent } from './layout/empresas/empresas.component';
+import { CategoriasComponent } from './layout/categorias/categorias.component';
+import { NovaCategoriaComponent } from './layout/nova-categoria/nova-categoria.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,10 @@ import { HttpClientModule } from '@angular/common/http';
     NovoAnuncioComponent,
     LayoutComponent,
     ModalMensagemComponent,
+    PainelComponent,
+    EmpresasComponent,
+    CategoriasComponent,
+    NovaCategoriaComponent,
   ],
   imports: [
     BrowserModule,
