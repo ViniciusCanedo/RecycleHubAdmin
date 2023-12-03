@@ -67,40 +67,52 @@
               </div>
             </mat-step>
             <mat-step [stepControl]="Addressform">
-              <div formGroupName="address">
+              <div>
                 <ng-template matStepLabel>Endereço</ng-template>
-                <div class="row mt-4">
-                  <mat-form-field class="col-2">
-                    <mat-label>CEP</mat-label>
-                    <input matInput placeholder="CEP" formControlName="cep" required>
-                  </mat-form-field>
-                  <mat-form-field class="col-4">
-                    <mat-label>Logradouro</mat-label>
-                    <input matInput placeholder="Logradouro" formControlName="logradouro" required>
-                  </mat-form-field>
-                  <mat-form-field class="col-4">
-                    <mat-label>Complemento</mat-label>
-                    <input matInput placeholder="Complemento" formControlName="complemento" required>
-                  </mat-form-field>
-                  <mat-form-field class="col-2">
-                    <mat-label>Número</mat-label>
-                    <input matInput placeholder="numero" formControlName="numero" required>
-                  </mat-form-field>
-                  <mat-form-field class="col-6">
-                    <mat-label>Bairro</mat-label>
-                    <input matInput placeholder="Bairro" formControlName="bairro" required>
-                  </mat-form-field>
-                  <mat-form-field class="col-4">
-                    <mat-label>Cidade</mat-label>
-                    <input matInput placeholder="Cidade" formControlName="cidade" required>
-                  </mat-form-field>
-                  <mat-form-field class="col-2" required>
-                    <mat-label>UF</mat-label>
-                    <mat-select formControlName="uf" required>
-                      <mat-option>None</mat-option>
-                      <mat-option *ngFor="let uf of uf" [value]="uf">{{uf}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <div formArrayName="address">
+                  <div *ngFor="let Addressform of Addressform.controls; let i = index">
+                    <div class="row mt-4">
+                      <mat-form-field class="col-2">
+                        <mat-label>CEP</mat-label>
+                        <input matInput placeholder="CEP" formControlName="cep" required>
+                      </mat-form-field>
+                      <mat-form-field class="col-4">
+                        <mat-label>Logradouro</mat-label>
+                        <input matInput placeholder="Logradouro" formControlName="logradouro" required>
+                      </mat-form-field>
+                      <mat-form-field class="col-4">
+                        <mat-label>Complemento</mat-label>
+                        <input matInput placeholder="Complemento" formControlName="complemento" required>
+                      </mat-form-field>
+                      <mat-form-field class="col-2">
+                        <mat-label>Número</mat-label>
+                        <input matInput placeholder="numero" formControlName="numero" required>
+                      </mat-form-field>
+                      <mat-form-field class="col-5">
+                        <mat-label>Bairro</mat-label>
+                        <input matInput placeholder="Bairro" formControlName="bairro" required>
+                      </mat-form-field>
+                      <mat-form-field class="col-4">
+                        <mat-label>Cidade</mat-label>
+                        <input matInput placeholder="Cidade" formControlName="cidade" required>
+                      </mat-form-field>
+                      <mat-form-field class="col-2" required>
+                        <mat-label>UF</mat-label>
+                        <mat-select formControlName="uf" required>
+                          <mat-option>None</mat-option>
+                          <mat-option *ngFor="let uf of uf" [value]="uf">{{uf}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-icon class="delete-btn col-1" (click)="deleteAddress(i)">delete_forever</mat-icon>
+                      <hr>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: flex;justify-content: center; margin-block: 16px;">
+                  <button mat-mini-fab color="primary" (click)="addAddress()">
+                    <mat-icon class="add-btn">add</mat-icon>
+                  </button>
                 </div>
                 <div>
                   <button mat-button matStepperPrevious>Voltar</button>

@@ -10,7 +10,11 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginService {
   private baseUrl = 'http://localhost:4201';
 
-  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
   login(email: string, senha: string): Observable<any> {
     const loginData = { email, senha };
@@ -18,6 +22,6 @@ export class LoginService {
   }
   logout() {
     this.cookieService.delete('cookieEmpresa');
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 }

@@ -5,6 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   FormGroup,
+  FormArray,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -54,15 +55,7 @@ export class ConfiguracoesComponent implements OnInit {
         telefone: [empresaLogada?.contato?.telefone || ''],
         celular: [empresaLogada?.contato?.celular || ''],
       }),
-      address: this.builder.group({
-        cep: [empresaLogada?.endereco?.cep || ''],
-        logradouro: [empresaLogada?.endereco?.logradouro || ''],
-        complemento: [empresaLogada?.endereco?.complemento || ''],
-        numero: [empresaLogada?.endereco?.numero || ''],
-        bairro: [empresaLogada?.endereco?.bairro || ''],
-        cidade: [empresaLogada?.endereco?.cidade || ''],
-        uf: [empresaLogada?.endereco?.uf || ''],
-      }),
+      address: this.builder.array([]),
     });
 
     this.routerUrl = this.router.url;
@@ -171,7 +164,7 @@ export class ConfiguracoesComponent implements OnInit {
   }
 
   get Addressform() {
-    return this.Empregister.get('address') as FormGroup;
+    return this.Empregister.get('address') as FormArray;
   }
 
   HandleSubmit() {
@@ -183,5 +176,26 @@ export class ConfiguracoesComponent implements OnInit {
         this.efetuarEdicao(); // Função para alterar
       }
     }
+  }
+
+  addAddress() {
+    const empresaLogadaString = this.cookieService.get('cookieEmpresa');
+    const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
+
+    const AddressInputs = this.builder.group({
+      cep: [empresaLogada?.endereco?.cep || ''],
+      logradouro: [empresaLogada?.endereco?.logradouro || ''],
+      complemento: [empresaLogada?.endereco?.complemento || ''],
+      numero: [empresaLogada?.endereco?.numero || ''],
+      bairro: [empresaLogada?.endereco?.bairro || ''],
+      cidade: [empresaLogada?.endereco?.cidade || ''],
+      uf: [empresaLogada?.endereco?.uf || ''],
+    });
+
+    this.Addressform.push(AddressInputs);
+  }
+
+  deleteAddress(addressIndex: number) {
+    this.Addressform.removeAt(addressIndex);
   }
 }
