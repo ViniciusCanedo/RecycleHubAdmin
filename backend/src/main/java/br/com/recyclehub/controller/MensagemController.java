@@ -56,5 +56,19 @@ public class MensagemController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> deletarMensagem(@PathVariable Long id) {
+        try {
+            Optional<Mensagem> mensagemOptional = mensagemDao.findById(id);
+            if (mensagemOptional.isPresent()) {
+                mensagemDao.delete(mensagemOptional.get());
+                return ResponseEntity.ok("Mensagem deletada com sucesso");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar a mensagem");
+        }
+    }
 }
 

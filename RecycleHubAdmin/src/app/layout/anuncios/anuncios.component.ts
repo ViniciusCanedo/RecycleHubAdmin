@@ -3,6 +3,7 @@ import { Produto } from '../../models/produto.model';
 import { ProdutoService } from '../../services/produto.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-anuncios',
@@ -26,7 +27,6 @@ export class AnunciosComponent {
   }
 
   carregarProdutos(): void {
-    console.log(this.produtos)
     this.produtoService.getProdutosByCnpj(this.empresaLogada.cnpj)
       .subscribe(
         produtos => {
@@ -36,5 +36,24 @@ export class AnunciosComponent {
           console.error('Erro ao buscar produtos:', error);
         }
       );
+  }
+
+  deletarProduto(id: any): void {
+    console.log('a')
+    if (confirm('Tem certeza que deseja deletar este produto?')) {
+      this.produtoService.deletarProduto(id)
+        .subscribe(
+          () => {
+            this.carregarProdutos();
+          },
+          error => {
+            if (error instanceof HttpErrorResponse && error.status === 200) {
+              this.carregarProdutos();
+            } else {
+              console.error('Erro desconhecido:', error);
+            }
+          }
+        );
+    }
   }
 }

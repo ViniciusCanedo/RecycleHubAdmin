@@ -20,4 +20,8 @@ export class MensagemService {
   getMensagensById(id: number): Observable<Mensagem[]> {
     return this.http.get<Mensagem[]>(`${this.baseUrl}/mensagem/listarPorProduto/${id}`);
   }
+
+  deletarMensagem(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/mensagem/deletar/${id}`);
+  }
 }

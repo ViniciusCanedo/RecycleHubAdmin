@@ -40,8 +40,8 @@
                   <td>{{ mensagem.telefone }}</td>
                   <td>{{ mensagem.email }}</td>
                   <td>
-                    <button class="btn btn-success me-2" (click)="modal.exibir(1)"><i class="ri-eye-fill"></i></button>
-                    <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                    <button class="btn btn-success me-2" (click)="exibirDetalhes(mensagem)"><i class="ri-eye-fill"></i></button>
+                    <button class="btn btn-danger me-2" (click)="deletarMensagem(mensagem.id)"><i class="ri-delete-bin-6-fill"></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -53,31 +53,9 @@
       </section>
     </div>
   </div>
-  <app-modal-mensagem #modal>
-    <div class="header-modal">
-      <h1>{{modal.teste.nome}}</h1>
-      <div class="modal-contact d-flex gap-4">
-        <div class="contact-data-modal">
-          <i class="ri-whatsapp-line me-2"></i>
-          <span>{{modal.teste.numero}}</span>
-        </div>
-        <div class="contact-data-modal">
-          <i class="ri-mail-line me-2"></i>
-          <span>{{modal.teste.email}}</span>
-        </div>
-      </div>
-    </div>
-    <div class="body-modal mt-4">
-      <div class="imessage">
-        <p class="from-them">
-          {{modal.teste.mensagem}}
-        </p>
-      </div>
-    </div>
-    <div class="footer-modal d-flex justify-content-end position-absolute">
-      <button (click)="acaoPrimaria(); modal.close();" class="btn btn-secondary">Fechar</button>
-    </div>
-
-
+  <ng-container #modalContainer></ng-container>
+  <app-modal-mensagem
+    [mensagemSelecionada]="mensagemSelecionada"
+    [mostrarModal]="mostrarModal">
   </app-modal-mensagem>
 </div>

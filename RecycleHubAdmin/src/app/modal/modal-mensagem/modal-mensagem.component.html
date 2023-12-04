@@ -1,6 +1,28 @@
-<ng-container *ngIf="mostrar">
+<ng-container *ngIf="mostrarModal">
   <div class="modal" @modal>
-    <ng-content></ng-content>
+    <div class="header-modal">
+      <h1>{{mensagemSelecionada?.nome}}</h1>
+      <div class="modal-contact d-flex gap-4">
+        <div class="contact-data-modal">
+          <i class="ri-whatsapp-line me-2"></i>
+          <span>{{mensagemSelecionada?.telefone}}</span>
+        </div>
+        <div class="contact-data-modal">
+          <i class="ri-mail-line me-2"></i>
+          <span>{{mensagemSelecionada?.email}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="body-modal mt-4">
+      <div class="imessage">
+        <p class="from-them">
+          {{mensagemSelecionada?.conteudo}}
+        </p>
+      </div>
+    </div>
+    <div class="footer-modal d-flex justify-content-end position-absolute">
+      <button (click)="close();" class="btn btn-secondary">Fechar</button>
+    </div>
   </div>
   <div (click)="close()"
        @overlay

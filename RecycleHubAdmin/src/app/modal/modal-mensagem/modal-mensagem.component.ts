@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -29,6 +29,8 @@ import { CookieService } from 'ngx-cookie-service';
   ]
 })
 export class ModalMensagemComponent {
+  @Input() mensagemSelecionada: any;
+  @Input() mostrarModal: boolean = false;
   constructor(
     private cookieService: CookieService,
     private router: Router,
@@ -40,7 +42,7 @@ export class ModalMensagemComponent {
       this.router.navigate(['/login']);
     }
   }
-  
+
   mostrar: boolean = false;
   teste = {
     nome : "",
@@ -49,27 +51,13 @@ export class ModalMensagemComponent {
       mensagem: ""
   }
 
-  exibir (idMessagem: Number) {
-    if (idMessagem == 1) {
-      this.teste = {
-        nome : "Fulano de Tal 1",
-        numero: "(15) 12345-6789",
-        email: "fulano.tal1@email.com" ,
-        mensagem: "Teste de mensagem para ser exibida de acordo com o id fornecido pelo click."
-      }
-    }else{
-      this.teste = {
-        nome : "Fulano de Tal 2",
-        numero: "(15) 12345-6789",
-        email: "fulano.tal2@email.com" ,
-        mensagem: "Teste de mensagem para ser exibida de acordo com o id fornecido pelo click.2"
-      }
-    }
-    
-    this.mostrar = !this.mostrar;    
+  exibir (mensagem: any) {
+    this.mensagemSelecionada = mensagem;
+    this.mostrar = !this.mostrar;
   }
 
   close(){
-    this.mostrar = false;
+    this.mensagemSelecionada = null;
+    this.mostrarModal = false
   }
 }

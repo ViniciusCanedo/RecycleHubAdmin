@@ -1,6 +1,5 @@
 package br.com.recyclehub.dao;
 
-import br.com.recyclehub.model.Empresa;
 import br.com.recyclehub.model.Mensagem;
 import br.com.recyclehub.model.Produto;
 
@@ -13,4 +12,5 @@ import java.util.Optional;
 @Repository
 public interface MensagemDao extends JpaRepository<Mensagem, Long> {
     List<Mensagem> findByProduto(Produto produto);
+    Optional<Mensagem> findById(long id);
 }

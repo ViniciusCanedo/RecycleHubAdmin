@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -52,5 +50,45 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> deletarProduto(@PathVariable Long id) {
+        try {
+            Optional<Produto> produtoOptional = produtoDao.findById(id);
+            if (produtoOptional.isPresent()) {
+                produtoDao.delete(produtoOptional.get());
+                return ResponseEntity.ok("Produto deletado com sucesso");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar o produto");
+        }
+    }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<String> editarProduto(@PathVariable Long id, @RequestBody Produto produtoAtualizado) {
+        try {
+            Optional<Produto> produtoOptional = produtoDao.findById(id);
+            if (produtoOptional.isPresent()) {
+                Produto produtoExistente = produtoOptional.get();
+
+                produtoExistente.setNome(produtoAtualizado.getNome());
+                produtoExistente.setPreco(produtoAtualizado.getPreco());
+                produtoExistente.setUnidadeMedida(produtoAtualizado.getUnidadeMedida());
+                produtoExistente.setDescricao(produtoAtualizado.getDescricao());
+                produtoExistente.setStatus(produtoAtualizado.getStatus());
+                produtoExistente.setImagem(produtoAtualizado.getImagem());
+
+                produtoDao.save(produtoExistente);
+                return ResponseEntity.ok("{\"message\": \"Produto deletado com sucesso\"}");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o produto");
+        }
+    }
 }
+
 

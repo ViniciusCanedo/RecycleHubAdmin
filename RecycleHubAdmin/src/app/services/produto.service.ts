@@ -24,4 +24,12 @@ export class ProdutoService {
   getProdutosByCnpj(cnpj: string): Observable<Produto[]> {
     return this.http.get<Produto[]>(`${this.baseUrl}/produto/listarPorEmpresa/${cnpj}`);
   }
+
+  editarProduto(id: any, produtoAtualizado: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/produto/editar/${id}`, produtoAtualizado);
+  }
+
+  deletarProduto(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/produto/deletar/${id}`);
+  }
 }

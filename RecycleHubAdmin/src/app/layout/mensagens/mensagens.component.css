@@ -146,7 +146,7 @@ p {
 p.from-me {
   align-self: flex-end;
   background-color: #248bf5;
-  color: #fff; 
+  color: #fff;
 }
 
 p.from-me::before {
@@ -202,9 +202,4 @@ p.from-them::after {
 
 .margin-t_one {
   margin-top: 1rem !important;
-}
-
-.footer-modal{
-  right: 20px;
-  bottom: 20px;
 }
