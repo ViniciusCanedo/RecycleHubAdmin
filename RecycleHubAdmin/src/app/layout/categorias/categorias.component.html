@@ -23,34 +23,10 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Categoria 1</td>
+                        <tr *ngFor="let categoria of categorias">
+                            <td>{{categoria.nome}}</td>
                             <td>
-                                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Categoria 1</td>
-                            <td>
-                                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Categoria 1</td>
-                            <td>
-                                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Categoria 1</td>
-                            <td>
-                                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Categoria 1</td>
-                            <td>
-                                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                                <button class="btn btn-danger me-2" (click)="deletarCategoria(categoria.id)"><i class="ri-delete-bin-6-fill"></i></button>
                             </td>
                         </tr>
                     </tbody>
