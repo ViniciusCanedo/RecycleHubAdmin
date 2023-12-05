@@ -32,4 +32,8 @@ export class ProdutoService {
   deletarProduto(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/produto/deletar/${id}`);
   }
+
+  obterVisualizacoes(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/produto/somaVisualizacoes`);
+  }
 }
