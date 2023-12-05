@@ -20,7 +20,7 @@ export class CategoriasComponent {
   ngOnInit(): void {
     this.carregarCategorias();
   }
-  
+
   carregarCategorias(): void {
     this.categoriaService.carregarCategorias().subscribe(
       categorias => {
@@ -44,7 +44,7 @@ export class CategoriasComponent {
             if (error instanceof HttpErrorResponse && error.status === 200) {
               this.carregarCategorias();
             } else {
-              console.error('Erro desconhecido:', error);
+              alert('Há produtos cadastrados com esta categoria. Não é possível deletá-la.');
             }
           }
         );
