@@ -19,7 +19,8 @@ export class CategoriasComponent {
 
   ngOnInit(): void {
     const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
-    if (!isCookieExists) {
+    const isSpecialAccess: boolean = this.cookieService.get('adm') === 'true';
+    if (!isCookieExists || !isSpecialAccess) {
       this.router.navigate(['/login']);
     }
     this.carregarCategorias();

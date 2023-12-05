@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
           this.cookieService.set('adm', response.adm);
           const empresaDataString = JSON.stringify(response.dadosEmpresa);
           this.cookieService.set('cookieEmpresa', empresaDataString);
-          console.log(this.cookieService.get('cookieEmpresa'));
           this.router.navigate(['/']);
         } else {
           this.errorMessage = 'Credenciais inválidas';

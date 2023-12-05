@@ -113,6 +113,7 @@ export class ConfiguracoesComponent implements OnInit {
               }
             );
           }
+          this.router.navigate(['/login']);
         }
       },
       (error: any) => {
