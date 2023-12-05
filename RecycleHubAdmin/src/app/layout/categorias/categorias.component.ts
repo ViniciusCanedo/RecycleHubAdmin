@@ -18,6 +18,10 @@ export class CategoriasComponent {
   categorias:any[]=[];
 
   ngOnInit(): void {
+    const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
+    if (!isCookieExists) {
+      this.router.navigate(['/login']);
+    }
     this.carregarCategorias();
   }
 

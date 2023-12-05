@@ -21,65 +21,32 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab"
-                        tabindex="0">
+                    <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
+                      <table datatable class="table table-striped table-success mt-5 table-borderless">
+                          <thead>
+                              <tr>
+                                  <th>Empresa</th>
+                                  <th>CNPJ</th>
+                                  <th>E-mail</th>
+                                  <th>Bloquear conta</th>
+                              </tr>
+                          </thead>
 
-                        <table datatable class="table table-striped table-success mt-5 table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Empresa</th>
-                                    <th>CNPJ</th>
-                                    <th>E-mail</th>
-                                    <th>Bloquear conta</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>Empresa 1</td>
-                                    <td>99.999.999/9999-99</td>
-                                    <td>empresa1@email.com</td>
-                                    <td>
-                                        <button class="btn btn-danger me-2">
-                                            <i class="ri-lock-2-fill"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane fade" id="block-tab-pane" role="tabpanel" aria-labelledby="block-tab"
-                        tabindex="0">
-                        <table datatable class="table table-striped table-success mt-5 table-borderless">
-                            <thead>
-                                <tr>
-                                    <th>Empresa</th>
-                                    <th>CNPJ</th>
-                                    <th>E-mail</th>
-                                    <th>Desbloquear conta</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>Empresa 1</td>
-                                    <td>99.999.999/9999-99</td>
-                                    <td>empresa1@email.com</td>
-                                    <td>
-                                        <button class="btn btn-success me-2">
-                                            <i class="ri-lock-unlock-fill"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-
+                          <tbody>
+                              <tr *ngFor="let empresa of empresas">
+                                  <td>{{ empresa.nome }}</td>
+                                  <td>{{ empresa.cnpj }}</td>
+                                  <td>{{ empresa.email }}</td>
+                                  <td>
+                                      <button class="btn btn-danger me-2">
+                                          <i class="ri-lock-2-fill"></i>
+                                      </button>
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
                 </div>
-
-
-
             </section>
         </div>
     </div>

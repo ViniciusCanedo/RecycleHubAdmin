@@ -9,17 +9,16 @@
                         <div>Nova categoria</div>
                     </div>
                 </div>
-                <form class="mt-4">
+                <form class="mt-4" [formGroup]="categoriaForm">
                     <div class="row mt-4">
                         <mat-form-field class="col-5">
                             <mat-label>Categoria</mat-label>
-                            <input matInput placeholder="Categoria" formControlName="categoria" required>
+                            <input matInput placeholder="Categoria" formControlName="nome" required>
                         </mat-form-field>
 
                     </div>
                     <div class="col-6">
-                        <button mat-button class="BtnRascunho">Salvar rascunho</button>
-                        <button mat-button type="submit" class="BtnPublicar">Publicar</button>
+                        <button mat-button type="submit" class="BtnPublicar" (click)="cadastrarCategoria()">Publicar</button>
                     </div>
                 </form>
             </section>

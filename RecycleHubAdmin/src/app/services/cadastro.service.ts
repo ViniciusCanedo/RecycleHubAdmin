@@ -16,4 +16,7 @@ export class CadastroService {
   cadastrarEndereco(cnpj: any, address: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/endereco/${cnpj}/cadastro/`, address);
   }
+  cadastrarCategoria(nome: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/categoria/cadastro/`, nome);
+  }
 }
