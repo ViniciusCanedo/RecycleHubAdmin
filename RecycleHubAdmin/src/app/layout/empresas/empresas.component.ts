@@ -9,30 +9,54 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './empresas.component.html',
   styleUrls: ['./empresas.component.css']
 })
+
 export class EmpresasComponent {
   constructor(
     private cookieService: CookieService,
     private router: Router,
     private empresaService: EmpresaService,
   ) {}
-  empresas:any[]=[];
+  todasEmpresas: any[] = [];
+  empresasBloqueadas: any[] = [];
+  empresas: any[] = [];
 
   ngOnInit(): void {
     const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
     if (!isCookieExists) {
       this.router.navigate(['/login']);
     }
-    this.carregarEmpresa();
+    this.carregarEmpresas();
   }
 
-  carregarEmpresa(): void {
+  carregarEmpresas(): void {
     this.empresaService.carregarEmpresas().subscribe(
       empresas => {
-        this.empresas = empresas;
+        this.todasEmpresas = empresas;
+        this.empresas = this.todasEmpresas;
+        this.carregarEmpresasNaoAprovadas();
       },
       error => {
         console.error('Erro ao carregar empresa', error);
       }
     );
-    }
+  }
+
+  exibirTodasEmpresas(): void {
+    this.empresas = this.todasEmpresas;
+  }
+
+  exibirEmpresasBloqueadas(): void {
+    this.empresas = this.empresasBloqueadas;
+  }
+
+  carregarEmpresasNaoAprovadas(): void {
+    this.empresaService.carregarEmpresasNaoAprovadas().subscribe(
+      empresas => {
+        this.empresasBloqueadas = empresas;
+      },
+      error => {
+        console.error('Erro ao carregar empresas não aprovadas', error);
+      }
+    );
+  }
 }

@@ -12,12 +12,12 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active text-secondary" id="all-tab" data-bs-toggle="tab"
                             data-bs-target="#all-tab-pane" type="button" role="tab" aria-controls="all-tab-pane"
-                            aria-selected="true">Todos</button>
+                            aria-selected="true" (click)="exibirTodasEmpresas()">Todos</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link text-secondary" id="block-tab" data-bs-toggle="tab"
                             data-bs-target="#block-tab-pane" type="button" role="tab" aria-controls="block-tab-pane"
-                            aria-selected="false">Bloqueadas</button>
+                            aria-selected="false" (click)="exibirEmpresasBloqueadas()">Bloqueadas</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">

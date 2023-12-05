@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(email, senha).subscribe(
       (response) => {
         if (response.message === 'Autenticação bem-sucedida') {
+          this.cookieService.set('adm', response.adm);
           const empresaDataString = JSON.stringify(response.dadosEmpresa);
           this.cookieService.set('cookieEmpresa', empresaDataString);
           console.log(this.cookieService.get('cookieEmpresa'));

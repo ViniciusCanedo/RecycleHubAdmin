@@ -18,5 +18,7 @@ export class HomeComponent {
     if (!isCookieExists) {
       this.router.navigate(['/login']);
     }
+    const isSpecialAccess: boolean = this.cookieService.get('adm') === 'true';
+    console.log('Acesso especial:', isSpecialAccess);
   }
 }

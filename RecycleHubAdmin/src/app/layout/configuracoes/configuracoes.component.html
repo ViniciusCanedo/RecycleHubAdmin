@@ -16,13 +16,17 @@
               <div formGroupName="basic">
                 <ng-template matStepLabel>Dados cadastrais</ng-template>
                 <div class="row mt-4">
-                  <mat-form-field class="col-6">
+                  <mat-form-field class="col-5">
                     <mat-label>Empresa</mat-label>
                     <input matInput placeholder="Nome da empresa" formControlName="nome" required value="">
                   </mat-form-field>
-                  <mat-form-field class="col-6">
+                  <mat-form-field class="col-5">
                     <mat-label>CNPJ</mat-label>
                     <input matInput placeholder="CNPJ" formControlName="cnpj" required>
+                  </mat-form-field>
+                  <mat-form-field class="col-2">
+                    <mat-label>CEP</mat-label>
+                    <input matInput placeholder="CEP" formControlName="cep" required>
                   </mat-form-field>
                   <mat-form-field class="col-7">
                     <mat-label>E-mail</mat-label>
@@ -70,17 +74,13 @@
 
               <ng-template matStepLabel>Endereço</ng-template>
               <div formArrayName="address">
-                <div *ngFor="let Addressform of Addressform.controls; let i = index">
+                <div *ngFor="let Addressform of Addressform.controls; let i = index" [formGroupName]="i">
                   <div class="row mt-4">
-                    <mat-form-field class="col-2">
-                      <mat-label>CEP</mat-label>
-                      <input matInput placeholder="CEP" formControlName="cep" required>
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
+                    <mat-form-field class="col-5">
                       <mat-label>Logradouro</mat-label>
                       <input matInput placeholder="Logradouro" formControlName="logradouro" required>
                     </mat-form-field>
-                    <mat-form-field class="col-4">
+                    <mat-form-field class="col-5">
                       <mat-label>Complemento</mat-label>
                       <input matInput placeholder="Complemento" formControlName="complemento" required>
                     </mat-form-field>

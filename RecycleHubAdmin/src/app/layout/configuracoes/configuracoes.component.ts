@@ -47,6 +47,7 @@ export class ConfiguracoesComponent implements OnInit {
       basic: this.builder.group({
         nome: [empresaLogada?.nome || ''],
         cnpj: [empresaLogada?.cnpj || ''],
+        cep: [empresaLogada?.cep || ''],
         email: [empresaLogada?.email || ''],
         senha: [empresaLogada?.senha || ''],
         img: [empresaLogada?.img || ''],
@@ -73,44 +74,66 @@ export class ConfiguracoesComponent implements OnInit {
     }
   }
   efetuarCadastro() {
-    const { basic, contact, address } = this.Empregister.value;
-    const { cep, ...rest } = address;
-    const dadosEndereco = rest;
+    const { basic, contact } = this.Empregister.value;
+    const addresses = this.Empregister.get('address') as FormArray;
+
+    const dadosEndereco = addresses.controls.map((address: any) => {
+      const { cep, ...rest } = address.value;
+      return rest;
+    });
+
+    const cepEmpresa = basic.cep;
+
     const dadosEmpresa = {
       ...basic,
       ...contact,
-      cep,
+      endereco: dadosEndereco,
+      cep: cepEmpresa,
     };
+
     this.cadastroService.cadastrarEmpresa(dadosEmpresa).subscribe(
-      (result: any) => {
-        if (result.status === 200 || result.status === 201) {
-          this.cadastroService
-            .cadastrarEndereco(basic.cnpj, dadosEndereco)
-            .subscribe(
+      (result1: any) => {
+        if (result1.status === 200 || result1.status === 201) {
+          for (let i = 0; i < addresses.length; i++) {
+            const address = addresses.at(i) as FormGroup; // Obtemos o FormGroup de cada índice
+
+            const dadosEndereco = address.value;
+
+            this.cadastroService.cadastrarEndereco(basic.cnpj, dadosEndereco).subscribe(
               (result2: any) => {
                 if (result2.status === 200 || result2.status === 201) {
                   this.router.navigate(['/login']);
                 }
               },
-              (error: any) => {}
+              (error: any) => {
+                if (error.status === 200 || error.status === 201) {
+                  this.router.navigate(['/login']);
+                }
+                this.router.navigate(['/login']);
+              }
             );
-        } else {
+          }
         }
       },
       (error: any) => {
-        console.log('Erro ao cadastrar a empresa:', error);
-        this.cadastroService
-          .cadastrarEndereco(basic.cnpj, dadosEndereco)
-          .subscribe(
+        for (let i = 0; i < addresses.length; i++) {
+          const address = addresses.at(i) as FormGroup; // Obtemos o FormGroup de cada índice
+
+          const dadosEndereco = address.value;
+
+          this.cadastroService.cadastrarEndereco(basic.cnpj, dadosEndereco).subscribe(
             (result2: any) => {
               if (result2.status === 200 || result2.status === 201) {
                 this.router.navigate(['/login']);
               }
             },
             (error: any) => {
-              this.router.navigate(['/login']);
+              if (error.status === 200 || error.status === 201) {
+                this.router.navigate(['/login']);
+              }
             }
           );
+        }
       }
     );
   }
@@ -169,30 +192,26 @@ export class ConfiguracoesComponent implements OnInit {
 
   HandleSubmit() {
     if (this.Empregister.valid) {
-      // Enviar os dados para o backend
+      console.log('Dados do endereço:', this.Empregister.get('address')?.value);
       if (this.routerUrl === '/cadastro') {
-        this.efetuarCadastro(); // Função para cadastrar
+        this.efetuarCadastro();
       } else if (this.routerUrl === '/configuracoes') {
-        this.efetuarEdicao(); // Função para alterar
+        this.efetuarEdicao();
       }
     }
   }
 
   addAddress() {
-    const empresaLogadaString = this.cookieService.get('cookieEmpresa');
-    const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
-
-    const AddressInputs = this.builder.group({
-      cep: [empresaLogada?.endereco?.cep || ''],
-      logradouro: [empresaLogada?.endereco?.logradouro || ''],
-      complemento: [empresaLogada?.endereco?.complemento || ''],
-      numero: [empresaLogada?.endereco?.numero || ''],
-      bairro: [empresaLogada?.endereco?.bairro || ''],
-      cidade: [empresaLogada?.endereco?.cidade || ''],
-      uf: [empresaLogada?.endereco?.uf || ''],
+    const addressInputs = this.builder.group({
+      logradouro: '',
+      complemento: '',
+      numero: '',
+      bairro: '',
+      cidade: '',
+      uf: '',
     });
 
-    this.Addressform.push(AddressInputs);
+    this.Addressform.push(addressInputs)
   }
 
   deleteAddress(addressIndex: number) {
