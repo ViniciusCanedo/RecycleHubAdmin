@@ -71,4 +71,15 @@ public class CategoriaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<Categoria> buscarCategoriaPorId(@PathVariable Long id) {
+        try {
+            Optional<Categoria> categoria = categoriaDao.findById(id);
+
+            return categoria.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

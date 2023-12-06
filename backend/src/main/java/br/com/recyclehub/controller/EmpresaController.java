@@ -149,7 +149,7 @@ public class EmpresaController {
                 empresaExistente.setTelefone(empresaAtualizada.getTelefone());
                 empresaExistente.setCelular(empresaAtualizada.getCelular());
                 empresaExistente.setDescricao(empresaAtualizada.getDescricao());
-                empresaExistente.setImg(empresaAtualizada.getImg());
+                empresaExistente.setImagem(empresaAtualizada.getImagem());
 
                 empresaDao.save(empresaExistente);
                 return ResponseEntity.ok("Empresa atualizada com sucesso");

@@ -1,4 +1,5 @@
 import { Empresa } from './empresa.model';
+import { Categoria } from './categoria.model';
 export interface Produto {
     id: number;
     nome: string;
@@ -9,4 +10,5 @@ export interface Produto {
     imagem: string;
     visualizacoes: number;
     empresa: Empresa;
+    categoria: Categoria;
   }

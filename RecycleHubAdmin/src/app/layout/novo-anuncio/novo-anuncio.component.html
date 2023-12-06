@@ -23,15 +23,13 @@
                         <mat-form-field class="col-3">
                             <mat-label>Categoria</mat-label>
                             <mat-select formControlName="categoria" required>
-                                <mat-option>None</mat-option>
                                 <mat-option *ngFor="let categoria of categoria"
-                                    [value]="categoria">{{categoria}}</mat-option>
+                                    [value]="categoria">{{categoria.nome}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         <mat-form-field class="col-3">
                             <mat-label>Unidade de medida</mat-label>
                             <mat-select formControlName="unidadeMedida" required>
-                                <mat-option>None</mat-option>
                                 <mat-option *ngFor="let unidadeMedida of unidadeMedida"
                                     [value]="unidadeMedida">{{unidadeMedida}}</mat-option>
                             </mat-select>

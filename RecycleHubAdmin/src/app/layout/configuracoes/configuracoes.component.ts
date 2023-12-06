@@ -56,7 +56,7 @@ export class ConfiguracoesComponent implements OnInit {
         cep: [empresaLogada?.cep || ''],
         email: [empresaLogada?.email || ''],
         senha: [empresaLogada?.senha || ''],
-        img: [empresaLogada?.img || ''],
+        imagem: [empresaLogada?.imagem || ''],
       }),
       contact: this.builder.group({
         telefone: [empresaLogada?.telefone || ''],
@@ -122,7 +122,7 @@ export class ConfiguracoesComponent implements OnInit {
       endereco: dadosEndereco,
       cep: cepEmpresa,
     };
-
+    console.log(dadosEmpresa)
     this.cadastroService.cadastrarEmpresa(dadosEmpresa).subscribe(
       (result1: any) => {
         if (result1.status === 200 || result1.status === 201) {

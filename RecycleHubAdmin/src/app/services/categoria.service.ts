@@ -20,4 +20,8 @@ import { Categoria } from '../models/categoria.model';
   contarCategorias(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/categoria/contarCategorias`);
   }
+
+  getCategoriaById(id: any): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.baseUrl}/categoria/buscar/${id}`);
+  }
 }

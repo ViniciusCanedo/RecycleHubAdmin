@@ -39,6 +39,10 @@ public class Produto {
     @JoinColumn(name = "EMP_CNPJ", referencedColumnName = "EMP_CNPJ")
     private Empresa empresa;
 
+    @ManyToOne
+    @JoinColumn(name = "CATEGORIA_ID", referencedColumnName = "CATEGORIA_ID")
+    private Categoria categoria;
+
     // Getters e Setters
     public Long getId() {
         return id;
@@ -116,9 +120,16 @@ public class Produto {
         this.empresa = empresa;
     }
 
-    // Getter and setter for empresa
     public Empresa getEmpresa() {
         return empresa;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
     }
 
 }

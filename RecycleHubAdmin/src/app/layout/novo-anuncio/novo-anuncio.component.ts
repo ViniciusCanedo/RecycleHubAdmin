@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 
 import { ProdutoService } from '../../services/produto.service';
+import { CategoriaService } from '../../services/categoria.service';
 
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -25,10 +26,12 @@ export class NovoAnuncioComponent implements OnInit {
   botaoTexto: string = 'Publicar';
   legenda: string = 'Novo anúncio';
   novo: boolean = true;
+  categoria:any[]=[];
   constructor(
     private builder: FormBuilder,
     private router: Router,
     private produtoService: ProdutoService,
+    private categoriaService: CategoriaService,
     private cookieService: CookieService
   ) {}
 
@@ -46,7 +49,7 @@ export class NovoAnuncioComponent implements OnInit {
             nome: produto.nome,
             preco: produto.preco,
             categoria: ['', Validators.required],
-            unidadeMedida: ['', Validators.required],
+            unidadeMedida: produto.unidadeMedida,
             descricao: produto.descricao,
           });
         },
@@ -64,6 +67,8 @@ export class NovoAnuncioComponent implements OnInit {
         descricao: '',
       });
     }
+
+    this.carregarCategorias();
   }
 
   errorMessage = '';
@@ -139,8 +144,18 @@ export class NovoAnuncioComponent implements OnInit {
     this.selectedFile = event.target.files[0] ?? null;
   }
 
+  carregarCategorias(): void {
+    this.categoriaService.carregarCategorias().subscribe(
+      categorias => {
+        this.categoria = categorias;
+      },
+      error => {
+        console.error('Erro ao carregar categorias', error);
+      }
+    );
+    }
+
   unidadeMedida: string[] = ['KG', 'G', 'Unidade'];
-  categoria: string[] = ['Metal', 'Vidro', 'Plástico'];
 
   HandleSubmit() {
     this.routerUrl = this.router.url;

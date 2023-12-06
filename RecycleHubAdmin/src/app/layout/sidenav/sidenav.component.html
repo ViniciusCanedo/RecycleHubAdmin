@@ -13,13 +13,15 @@
       <i class="ri-building-fill"></i> Empresas
     </mat-list-item>
   </ng-container>
-  <mat-list-item routerLink="/home" routerLinkActive="list-item-active">
-    <i class="ri-home-4-fill"></i> Home
-  </mat-list-item>
-  <mat-list-item routerLink="/anuncios" routerLinkActive="list-item-active">
-    <i class="ri-advertisement-fill"></i> Anúncios
-  </mat-list-item>
-  <mat-list-item routerLink="/mensagens" routerLinkActive="list-item-active">
-    <i class="ri-chat-1-fill"></i> Mensagens
-  </mat-list-item>
+  <ng-container *ngIf="!isSpecialAccess">
+    <mat-list-item routerLink="/home" routerLinkActive="list-item-active">
+      <i class="ri-home-4-fill"></i> Home
+    </mat-list-item>
+    <mat-list-item routerLink="/anuncios" routerLinkActive="list-item-active">
+      <i class="ri-advertisement-fill"></i> Anúncios
+    </mat-list-item>
+    <mat-list-item routerLink="/mensagens" routerLinkActive="list-item-active">
+      <i class="ri-chat-1-fill"></i> Mensagens
+    </mat-list-item>
+  </ng-container>
 </mat-nav-list>

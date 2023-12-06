@@ -41,7 +41,7 @@ public class Empresa {
     private String status;
 
     @Column(name = "EMP_IMG", length = 255)
-    private String img;
+    private String imagem;
 
     // Getters
     public long getCnpj() {
@@ -80,8 +80,8 @@ public class Empresa {
         return status;
     }
 
-    public String getImg() {
-        return img;
+    public String getImagem() {
+        return imagem;
     }
 
     // Setters
@@ -122,7 +122,7 @@ public class Empresa {
         this.status = status;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }
