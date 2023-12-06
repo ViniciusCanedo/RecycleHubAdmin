@@ -47,92 +47,14 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
+                        <tr *ngFor="let empresa of empresas">
+                            <td>{{ empresa.nome }}</td>
+                            <td>{{ empresa.cnpj }}</td>
+                            <td>{{ empresa.email }}</td>
                             <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
+                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill" (click)="aprovarEmpresa(empresa.cnpj)"></i></button>
 
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
-                            <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
-
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
-                            <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
-
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
-                            <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
-
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
-                            <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
-
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
-                            <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
-
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
-                            <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
-
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Empresa 1</td>
-                            <td>99.999.999/9999-99</td>
-                            <td>empresa1@email.com</td>
-                            <td>
-                                <button class="btn btn-success me-2"><i class="ri-checkbox-circle-fill"></i></button>
-
-                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill"></i></button>
+                                <button class="btn btn-danger me-2"><i class="ri-close-circle-fill" (click)="bloquearEmpresa(empresa.cnpj)"></i></button>
                             </td>
                         </tr>
                     </tbody>

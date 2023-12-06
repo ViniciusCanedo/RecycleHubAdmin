@@ -23,8 +23,8 @@
 
           <div class="info_card col-12 col-md-5 col-xl-3 text-center">
             <div class="card-icon"><i class="ri-chat-off-fill"></i></div>
-            <div class="card-text">Mensagens não lidas</div>
-            <div class="card-value">07</div>
+            <div class="card-text">Mensagens recebidas</div>
+            <div class="card-value">{{ quantidadeMensagens }}</div>
           </div>
 
         </div>
@@ -52,9 +52,9 @@
               <td> categoria </td>
               <td>{{ produto.status }}</td>
               <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
+                <button class="btn btn-success me-2" (click)="publicarProduto(produto.id)"><i class="ri-upload-2-fill"></i></button>
+                <button class="btn btn-secondary me-2" (click)="editarAnuncio(produto.id)"><i class="ri-pencil-fill"></i></button>
+                <button class="btn btn-danger me-2" (click)="deletarProduto(produto.id)"><i class="ri-delete-bin-6-fill"></i></button>
               </td>
             </tr>
           </tbody>

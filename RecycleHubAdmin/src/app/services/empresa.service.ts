@@ -23,6 +23,10 @@ import { Endereco } from '../models/endereco.model';
     return this.http.get<Empresa[]>(`${this.baseUrl}/empresa/listar/nao-aprovadas`);
   }
 
+  carregarEmpresasBloqueadas(): Observable<Empresa[]> {
+    return this.http.get<Empresa[]>(`${this.baseUrl}/empresa/listar/bloqueadas`);
+  }
+
   contarEmpresas(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/empresa/contarEmpresas`);
   }
@@ -41,5 +45,15 @@ import { Endereco } from '../models/endereco.model';
 
   excluirEndereco(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/endereco/deletar/${id}`);
+  }
+
+  bloquearEmpresa(cnpj: string, novoStatus: any): Observable<any> {
+    const body = { novoStatus: novoStatus };
+    return this.http.put(`${this.baseUrl}/empresa/bloquear/${cnpj}`, body);
+  }
+
+  aprovarEmpresa(cnpj: string, novoStatus: any): Observable<any> {
+    const body = { novoStatus: novoStatus };
+    return this.http.put(`${this.baseUrl}/empresa/aprovar/${cnpj}`, body);
   }
 }

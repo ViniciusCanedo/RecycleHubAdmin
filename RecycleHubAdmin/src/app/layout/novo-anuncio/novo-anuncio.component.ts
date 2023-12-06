@@ -117,7 +117,6 @@ export class NovoAnuncioComponent implements OnInit {
 
   EditarAnuncio(){
     const produto = this.Anuncio.value;
-    console.log(this.Anuncio.value)
     this.produtoService.editarProduto(this.produtoId, produto).subscribe(
       (response) => {
         if (response.status === 200 || response.status === 201) {
@@ -131,6 +130,7 @@ export class NovoAnuncioComponent implements OnInit {
         //erro
       }
     );
+    this.router.navigate(['/anuncios']);
   }
 
   selectedFile: any = null;

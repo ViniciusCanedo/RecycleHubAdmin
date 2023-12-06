@@ -106,8 +106,18 @@ public class EmpresaController {
     @GetMapping("/listar/nao-aprovadas")
     public ResponseEntity<List<Empresa>> listarEmpresasNaoAprovadas() {
         try {
-            List<Empresa> empresasNaoAprovadas = empresaDao.findByStatusNot("Aprovada");
+            List<Empresa> empresasNaoAprovadas = empresaDao.findByStatus("Não aprovada");
             return ResponseEntity.ok(empresasNaoAprovadas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/listar/bloqueadas")
+    public ResponseEntity<List<Empresa>> listarEmpresasBloqueadas() {
+        try {
+            List<Empresa> empresasBloqueadas = empresaDao.findByStatus("Bloqueada");
+            return ResponseEntity.ok(empresasBloqueadas);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
@@ -148,6 +158,50 @@ public class EmpresaController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar a empresa");
+        }
+    }
+
+    @PutMapping("/bloquear/{cnpj}")
+    public ResponseEntity<String> atualizarStatusProduto(@PathVariable Long cnpj, @RequestBody Map<String, String> requestBody) {
+        try {
+            Optional<Empresa> empresaOptional = empresaDao.findByCnpj(cnpj);
+            if (empresaOptional.isPresent()) {
+                Empresa empresaExistente = empresaOptional.get();
+
+                String novoStatus = requestBody.get("novoStatus");
+
+                empresaExistente.setStatus(novoStatus);
+                empresaDao.save(empresaExistente);
+            
+                empresaDao.save(empresaExistente);
+                return ResponseEntity.ok("{\"message\": \"Empresa bloqueada\"}");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao bloquear empresa");
+        }
+    }
+
+    @PutMapping("/aprovar/{cnpj}")
+    public ResponseEntity<String> aprovarStatusProduto(@PathVariable Long cnpj, @RequestBody Map<String, String> requestBody) {
+        try {
+            Optional<Empresa> empresaOptional = empresaDao.findByCnpj(cnpj);
+            if (empresaOptional.isPresent()) {
+                Empresa empresaExistente = empresaOptional.get();
+
+                String novoStatus = requestBody.get("novoStatus");
+
+                empresaExistente.setStatus(novoStatus);
+                empresaDao.save(empresaExistente);
+            
+                empresaDao.save(empresaExistente);
+                return ResponseEntity.ok("{\"message\": \"Empresa aprovada\"}");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao aprovar empresa");
         }
     }
 }

@@ -32,7 +32,7 @@ export class ProdutoService {
   publicarProduto(id: any, novoStatus: any): Observable<any> {
     const body = { novoStatus: novoStatus };
     return this.http.put(`${this.baseUrl}/produto/publicar/${id}`, body);
-}
+  }
 
   deletarProduto(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/produto/deletar/${id}`);

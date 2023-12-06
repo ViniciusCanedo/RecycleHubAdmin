@@ -38,7 +38,7 @@
                                   <td>{{ empresa.cnpj }}</td>
                                   <td>{{ empresa.email }}</td>
                                   <td>
-                                      <button class="btn btn-danger me-2">
+                                      <button class="btn btn-danger me-2" (click)="bloquearEmpresa(empresa.cnpj)">
                                           <i class="ri-lock-2-fill"></i>
                                       </button>
                                   </td>

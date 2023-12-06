@@ -34,7 +34,7 @@ export class EmpresasComponent {
       empresas => {
         this.todasEmpresas = empresas;
         this.empresas = this.todasEmpresas;
-        this.carregarEmpresasNaoAprovadas();
+        this.carregarEmpresasBloqueadas();
       },
       error => {
         console.error('Erro ao carregar empresa', error);
@@ -50,8 +50,8 @@ export class EmpresasComponent {
     this.empresas = this.empresasBloqueadas;
   }
 
-  carregarEmpresasNaoAprovadas(): void {
-    this.empresaService.carregarEmpresasNaoAprovadas().subscribe(
+  carregarEmpresasBloqueadas(): void {
+    this.empresaService.carregarEmpresasBloqueadas().subscribe(
       empresas => {
         this.empresasBloqueadas = empresas;
       },
@@ -59,5 +59,23 @@ export class EmpresasComponent {
         console.error('Erro ao carregar empresas não aprovadas', error);
       }
     );
+  }
+
+  bloquearEmpresa(id: any): void {
+    if (confirm('Tem certeza que deseja bloquear este empresa?')) {
+      this.empresaService.bloquearEmpresa(id, 'Bloqueada')
+        .subscribe(
+          (response: any) => {
+            this.carregarEmpresas();
+          },
+          (error: any) => {
+            if (error instanceof HttpErrorResponse && error.status === 200) {
+              this.carregarEmpresas();
+            } else {
+              console.error('Erro desconhecido:', error);
+            }
+          }
+        );
+    }
   }
 }
