@@ -1,7 +1,6 @@
 package br.com.recyclehub.controller;
 
 import br.com.recyclehub.dao.EmpresaDao;
-import br.com.recyclehub.model.Categoria;
 import br.com.recyclehub.model.Empresa;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +32,10 @@ public class EmpresaController {
         if (empresa.isPresent()) {
 
             Empresa empresaAutenticada = empresa.get();
+
+            if (!empresaAutenticada.getStatus().equalsIgnoreCase("Aprovada")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"Login não permitido, empresa não aprovada\"}");
+            }
 
             if (email.equals("adm") && senha.equals("123")) {
                 // adm
@@ -66,7 +69,11 @@ public class EmpresaController {
             } else {
                 System.out.println("Objeto Empresa recebido no cadastro: " + novaEmpresa.toString());
                 if (novaEmpresa.getStatus() == null) {
-                    novaEmpresa.setStatus("Não aprovada");
+                    if (novaEmpresa.getEmail().equals("adm") && novaEmpresa.getSenha().equals("123")) {
+                        novaEmpresa.setStatus("Aprovada");
+                    } else {
+                        novaEmpresa.setStatus("Não aprovada");
+                    }
                 }
                 empresaDao.save(novaEmpresa);
                 return ResponseEntity.status(HttpStatus.CREATED).body("Empresa cadastrada com sucesso");
@@ -97,13 +104,23 @@ public class EmpresaController {
     }
 
     @GetMapping("/listar/nao-aprovadas")
-        public ResponseEntity<List<Empresa>> listarEmpresasNaoAprovadas() {
-            try {
-                List<Empresa> empresasNaoAprovadas = empresaDao.findByStatusNot("Aprovada");
-                return ResponseEntity.ok(empresasNaoAprovadas);
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-            }
+    public ResponseEntity<List<Empresa>> listarEmpresasNaoAprovadas() {
+        try {
+            List<Empresa> empresasNaoAprovadas = empresaDao.findByStatusNot("Aprovada");
+            return ResponseEntity.ok(empresasNaoAprovadas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+    
+    @GetMapping("/contarEmpresas")
+    public ResponseEntity<Integer> contarEmpresas() {
+        try {
+            int totalEmpresas = empresaDao.contarEmpresas();
 
+            return ResponseEntity.ok(totalEmpresas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

@@ -60,4 +60,15 @@ public class CategoriaController {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/contarCategorias")
+    public ResponseEntity<Integer> contarCategorias() {
+        try {
+            int totalCategorias = categoriaDao.contarCategorias();
+
+            return ResponseEntity.ok(totalCategorias);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

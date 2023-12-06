@@ -9,6 +9,7 @@ import { ProdutoService } from '../../services/produto.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  totalAnuncios: any = 0;
   totalVisualizacoes: any = 0;
   empresaLogadaString = this.cookieService.get('cookieEmpresa');
   empresaLogada: any = JSON.parse(this.empresaLogadaString || '{}');
@@ -31,6 +32,14 @@ export class HomeComponent {
       },
       (error: any) => {
         console.error('Erro ao obter as visualizações:', error);
+      }
+    );
+    this.totalAnuncios = this.produtoService.contarAnuncios(this.empresaLogada.cnpj).subscribe(
+      (result: any) => {
+        this.totalAnuncios = result;
+      },
+      (error: any) => {
+        console.error('Erro ao obter os produtos:', error);
       }
     );
   }

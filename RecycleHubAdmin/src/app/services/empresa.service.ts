@@ -21,4 +21,8 @@ import { Empresa } from '../models/empresa.model';
   carregarEmpresasNaoAprovadas(): Observable<Empresa[]> {
     return this.http.get<Empresa[]>(`${this.baseUrl}/empresa/listar/nao-aprovadas`);
   }
+
+  contarEmpresas(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/empresa/contarEmpresas`);
+  }
 }

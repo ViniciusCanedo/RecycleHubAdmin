@@ -134,6 +134,24 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/contarAnuncios/{cnpj}")
+    public ResponseEntity<Integer> contarAnuncios(@PathVariable Long cnpj) {
+        try {
+            ResponseEntity<List<Produto>> response = this.listarProdutosPorEmpresa(cnpj);
+            
+            if (response.getStatusCode() == HttpStatus.OK) {
+                List<Produto> produtos = response.getBody();
+                int quantidadeAnuncios = produtos.size();
+
+                return ResponseEntity.ok(quantidadeAnuncios);
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 
 

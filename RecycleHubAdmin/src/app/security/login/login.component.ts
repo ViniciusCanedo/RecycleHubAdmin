@@ -47,7 +47,11 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        this.errorMessage = 'Senha e/ou usuário inválido(s)';
+        if(error.error.error == "Login não permitido, empresa não aprovada"){
+          this.errorMessage = 'Empresa não aprovada';
+        } else {
+          this.errorMessage = 'Senha e/ou usuário inválido(s)';
+        }
         console.error('Erro no login:', error);
       }
     );

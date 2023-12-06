@@ -41,4 +41,8 @@ export class ProdutoService {
   obterVisualizacoes(cnpj: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/produto/somaVisualizacoes/${cnpj}`);
   }
+
+  contarAnuncios(cnpj: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/produto/contarAnuncios/${cnpj}`);
+  }
 }

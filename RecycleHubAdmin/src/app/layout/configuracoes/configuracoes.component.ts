@@ -193,7 +193,6 @@ export class ConfiguracoesComponent implements OnInit {
 
   HandleSubmit() {
     if (this.Empregister.valid) {
-      console.log('Dados do endereço:', this.Empregister.get('address')?.value);
       if (this.routerUrl === '/cadastro') {
         this.efetuarCadastro();
       } else if (this.routerUrl === '/configuracoes') {

@@ -16,4 +16,8 @@ import { Categoria } from '../models/categoria.model';
   carregarCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(`${this.baseUrl}/categoria/listar`);
   }
+
+  contarCategorias(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/categoria/contarCategorias`);
+  }
 }
