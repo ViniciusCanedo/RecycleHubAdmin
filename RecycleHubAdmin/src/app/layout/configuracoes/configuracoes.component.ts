@@ -16,7 +16,10 @@ import { filter } from 'rxjs/operators';
 import { event } from 'jquery';
 
 import { CadastroService } from '../../services/cadastro.service';
+import { EmpresaService } from '../../services/empresa.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Endereco } from '../../models/endereco.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-configuracoes',
@@ -29,12 +32,15 @@ export class ConfiguracoesComponent implements OnInit {
   title = '';
   botaoTexto: string = 'Enviar';
   routerUrl: string = '';
+  enderecos: Endereco[] = [];
+  enderecosDeletados: number[] = [];
 
   constructor(
     private builder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private cadastroService: CadastroService,
+    private empresaService: EmpresaService,
     private cookieService: CookieService
   ) {}
   isLinear = true;
@@ -42,9 +48,9 @@ export class ConfiguracoesComponent implements OnInit {
   ngOnInit(): void {
     const empresaLogadaString = this.cookieService.get('cookieEmpresa');
     const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
-
     this.Empregister = this.builder.group({
       basic: this.builder.group({
+        enderecoId: [''],
         nome: [empresaLogada?.nome || ''],
         cnpj: [empresaLogada?.cnpj || ''],
         cep: [empresaLogada?.cep || ''],
@@ -53,11 +59,37 @@ export class ConfiguracoesComponent implements OnInit {
         img: [empresaLogada?.img || ''],
       }),
       contact: this.builder.group({
-        telefone: [empresaLogada?.contato?.telefone || ''],
-        celular: [empresaLogada?.contato?.celular || ''],
+        telefone: [empresaLogada?.telefone || ''],
+        celular: [empresaLogada?.celular || ''],
       }),
       address: this.builder.array([]),
     });
+
+    this.routerUrl = this.router.url;
+
+    this.empresaService.getEnderecosByCnpj(empresaLogada.cnpj)
+      .subscribe(
+        enderecos => {
+          this.enderecos = enderecos;
+          // Se houver endereços, preencha os campos no formulário
+          if (this.enderecos.length > 0) {
+            const addressesFormArray = this.Empregister.get('address') as FormArray;
+
+            this.enderecos.forEach(endereco => {
+              addressesFormArray.push(this.builder.group({
+                logradouro: [endereco.logradouro],
+                complemento: [endereco.complemento],
+                numero: [endereco.numero],
+                cidade: [endereco.cidade],
+                uf: [endereco.uf],
+              }));
+            });
+          }
+        },
+        error => {
+          console.error('Erro ao buscar enderecos:', error);
+        }
+      );
 
     this.routerUrl = this.router.url;
 
@@ -139,7 +171,71 @@ export class ConfiguracoesComponent implements OnInit {
     );
   }
 
-  efetuarEdicao() {}
+  efetuarEdicao() {
+    const { basic, contact } = this.Empregister.value;
+    const addresses = this.Empregister.get('address') as FormArray;
+
+    const dadosEndereco = addresses.controls.map((address: any) => {
+      const { cep, ...rest } = address.value;
+      return rest;
+    });
+
+    const cepEmpresa = basic.cep;
+
+    const dadosEmpresa = {
+      ...basic,
+      ...contact,
+      cep: cepEmpresa,
+    };
+
+    const empresaLogadaString = this.cookieService.get('cookieEmpresa');
+    const empresaLogada: any = JSON.parse(empresaLogadaString || '{}');
+    const cnpjEmpresa = basic.cnpj;
+
+    const edicoesEnderecos = this.enderecos.map((endereco, index) => {
+      const enderecoEditado = dadosEndereco[index];
+      return this.empresaService.editarEndereco(endereco.id, enderecoEditado);
+    });
+
+    // Execução das edições dos endereços em paralelo
+    forkJoin(edicoesEnderecos).subscribe(
+      (results: any) => {
+        // Ao concluir as edições dos endereços, proceder com a exclusão
+        this.excluirEnderecos(cnpjEmpresa, dadosEmpresa);
+      },
+      (error: any) => {
+        console.log('Erro ao editar endereços:', error);
+        // Em caso de erro, ainda assim, prosseguir com a exclusão
+        this.excluirEnderecos(cnpjEmpresa, dadosEmpresa);
+      }
+    );
+
+    window.alert('Dados atualizados com sucesso');
+  }
+
+  excluirEnderecos(cnpjEmpresa: string, dadosEmpresa: any) {
+    this.enderecosDeletados.forEach(enderecoId => {
+      this.empresaService.excluirEndereco(this.enderecos[enderecoId].id).subscribe(
+        (result: any) => {
+          // Lidar com a resposta da exclusão, se necessário
+        },
+        (error: any) => {
+          // Lidar com erros na exclusão, se necessário
+        }
+      );
+    });
+
+    // Após excluir os endereços, realizar a edição da empresa
+    this.empresaService.editarEmpresa(cnpjEmpresa, dadosEmpresa).subscribe(
+      (result: any) => {
+        // Lidar com a resposta da edição da empresa
+      },
+      (error: any) => {
+        // Lidar com erros na edição da empresa
+      }
+    );
+  }
+
 
   hide = true;
 
@@ -216,5 +312,10 @@ export class ConfiguracoesComponent implements OnInit {
 
   deleteAddress(addressIndex: number) {
     this.Addressform.removeAt(addressIndex);
+    this.addDeletedAddress(addressIndex);
+  }
+
+  addDeletedAddress(enderecoId: number) {
+    this.enderecosDeletados.push(enderecoId);
   }
 }

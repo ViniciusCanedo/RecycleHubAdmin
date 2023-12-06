@@ -123,4 +123,31 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PutMapping("/editar/{cnpj}")
+    public ResponseEntity<String> editarEmpresa(@PathVariable Long cnpj, @RequestBody Empresa empresaAtualizada) {
+        try {
+            Optional<Empresa> empresaOptional = empresaDao.findByCnpj(cnpj);
+
+            if (empresaOptional.isPresent()) {
+                Empresa empresaExistente = empresaOptional.get();
+
+                empresaExistente.setNome(empresaAtualizada.getNome());
+                empresaExistente.setEmail(empresaAtualizada.getEmail());
+                empresaExistente.setSenha(empresaAtualizada.getSenha());
+                empresaExistente.setCep(empresaAtualizada.getCep());
+                empresaExistente.setTelefone(empresaAtualizada.getTelefone());
+                empresaExistente.setCelular(empresaAtualizada.getCelular());
+                empresaExistente.setDescricao(empresaAtualizada.getDescricao());
+                empresaExistente.setImg(empresaAtualizada.getImg());
+
+                empresaDao.save(empresaExistente);
+                return ResponseEntity.ok("Empresa atualizada com sucesso");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar a empresa");
+        }
+    }
 }

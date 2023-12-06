@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,6 +45,60 @@ public class EnderecoController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao cadastrar o endereço");
+        }
+    }
+
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<String> editarEndereco(@PathVariable Long id, @RequestBody Endereco enderecoAtualizado) {
+        try {
+            Optional<Endereco> enderecoOptional = enderecoDao.findById(id);
+
+            if (enderecoOptional.isPresent()) {
+                Endereco enderecoExistente = enderecoOptional.get();
+
+                enderecoExistente.setUf(enderecoAtualizado.getUf());
+                enderecoExistente.setCidade(enderecoAtualizado.getCidade());
+                enderecoExistente.setLogradouro(enderecoAtualizado.getLogradouro());
+                enderecoExistente.setNumero(enderecoAtualizado.getNumero());
+                enderecoExistente.setComplemento(enderecoAtualizado.getComplemento());
+
+                enderecoDao.save(enderecoExistente);
+                return ResponseEntity.ok("Endereço atualizado com sucesso");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o endereco");
+        }
+    }
+
+    @GetMapping("/listarPorEmpresa/{cnpj}")
+    public ResponseEntity<List<Endereco>> listarEnderecosPorEmpresa(@PathVariable Long cnpj) {
+        try {
+            Optional<Empresa> empresaOptional = empresaDao.findByCnpj(cnpj);
+            if (empresaOptional.isPresent()) {
+                List<Endereco> enderecos = enderecoDao.findByEmpresa(empresaOptional.get());
+                return ResponseEntity.ok(enderecos);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> deletarEndereco(@PathVariable Long id) {
+        try {
+            Optional<Endereco> enderecoOptional = enderecoDao.findById(id);
+            if (enderecoOptional.isPresent()) {
+                enderecoDao.delete(enderecoOptional.get());
+                return ResponseEntity.ok("Endereço deletado com sucesso");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar o endereço");
         }
     }
 }

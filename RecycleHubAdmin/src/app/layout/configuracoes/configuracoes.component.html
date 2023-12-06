@@ -16,6 +16,7 @@
               <div formGroupName="basic">
                 <ng-template matStepLabel>Dados cadastrais</ng-template>
                 <div class="row mt-4">
+                  <input type="hidden" formControlName="enderecoId">
                   <mat-form-field class="col-5">
                     <mat-label>Empresa</mat-label>
                     <input matInput placeholder="Nome da empresa" formControlName="nome" required value="">
@@ -76,27 +77,23 @@
               <div formArrayName="address">
                 <div *ngFor="let Addressform of Addressform.controls; let i = index" [formGroupName]="i">
                   <div class="row mt-4">
-                    <mat-form-field class="col-5">
+                    <mat-form-field class="col-6">
                       <mat-label>Logradouro</mat-label>
                       <input matInput placeholder="Logradouro" formControlName="logradouro" required>
                     </mat-form-field>
-                    <mat-form-field class="col-5">
+                    <mat-form-field class="col-6">
                       <mat-label>Complemento</mat-label>
-                      <input matInput placeholder="Complemento" formControlName="complemento" required>
+                      <input matInput placeholder="Complemento" formControlName="complemento">
                     </mat-form-field>
-                    <mat-form-field class="col-2">
+                    <mat-form-field class="col-3">
                       <mat-label>Número</mat-label>
                       <input matInput placeholder="numero" formControlName="numero" required>
                     </mat-form-field>
                     <mat-form-field class="col-5">
-                      <mat-label>Bairro</mat-label>
-                      <input matInput placeholder="Bairro" formControlName="bairro" required>
-                    </mat-form-field>
-                    <mat-form-field class="col-4">
                       <mat-label>Cidade</mat-label>
                       <input matInput placeholder="Cidade" formControlName="cidade" required>
                     </mat-form-field>
-                    <mat-form-field class="col-2" required>
+                    <mat-form-field class="col-3" required>
                       <mat-label>UF</mat-label>
                       <mat-select formControlName="uf" required>
                         <mat-option>None</mat-option>

@@ -25,7 +25,6 @@ export class HomeComponent {
       this.router.navigate(['/login']);
     }
     const isSpecialAccess: boolean = this.cookieService.get('adm') === 'true';
-    console.log('Acesso especial:', isSpecialAccess);
     this.totalVisualizacoes = this.produtoService.obterVisualizacoes(this.empresaLogada.cnpj).subscribe(
       (result: any) => {
         this.totalVisualizacoes = result;
