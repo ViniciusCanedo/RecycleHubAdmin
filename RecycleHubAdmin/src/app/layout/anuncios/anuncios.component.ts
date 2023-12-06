@@ -56,4 +56,22 @@ export class AnunciosComponent {
         );
     }
   }
+
+  publicarProduto(id: any): void {
+    if (confirm('Tem certeza que deseja publicar este produto?')) {
+      this.produtoService.publicarProduto(id, 'Publicado')
+        .subscribe(
+          () => {
+            this.carregarProdutos();
+          },
+          error => {
+            if (error instanceof HttpErrorResponse && error.status === 200) {
+              this.carregarProdutos();
+            } else {
+              console.error('Erro desconhecido:', error);
+            }
+          }
+        );
+    }
+  }
 }

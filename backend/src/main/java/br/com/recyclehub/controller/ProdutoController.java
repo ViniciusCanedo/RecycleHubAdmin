@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/produto")
@@ -87,6 +88,28 @@ public class ProdutoController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o produto");
+        }
+    }
+
+    @PutMapping("/publicar/{id}")
+    public ResponseEntity<String> atualizarStatusProduto(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
+        try {
+            Optional<Produto> produtoOptional = produtoDao.findById(id);
+            if (produtoOptional.isPresent()) {
+                Produto produtoExistente = produtoOptional.get();
+
+                String novoStatus = requestBody.get("novoStatus");
+
+                produtoExistente.setStatus(novoStatus);
+                produtoDao.save(produtoExistente);
+            
+                produtoDao.save(produtoExistente);
+                return ResponseEntity.ok("{\"message\": \"Status do produto atualizado com sucesso\"}");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o status do produto");
         }
     }
 }

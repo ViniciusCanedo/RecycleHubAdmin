@@ -28,7 +28,7 @@
                 <td>{{ produto.nome }}</td>
                 <td>{{ produto.status }}</td>
                 <td>
-                  <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
+                  <button class="btn btn-success me-2" (click)="publicarProduto(produto.id)"><i class="ri-upload-2-fill"></i></button>
                   <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
                   <button class="btn btn-danger me-2" (click)="deletarProduto(produto.id)"><i class="ri-delete-bin-6-fill"></i></button>
                 </td>
