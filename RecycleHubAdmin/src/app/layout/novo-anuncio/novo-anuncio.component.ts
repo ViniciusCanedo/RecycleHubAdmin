@@ -11,6 +11,7 @@ import { ProdutoService } from '../../services/produto.service';
 
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Produto } from 'src/app/models/produto.model';
 
 @Component({
   selector: 'app-novo-anuncio',
@@ -19,6 +20,11 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NovoAnuncioComponent implements OnInit {
   Anuncio!: FormGroup;
+  routerUrl: string = '';
+  produtoId: any;
+  botaoTexto: string = 'Publicar';
+  legenda: string = 'Novo anúncio';
+  novo: boolean = true;
   constructor(
     private builder: FormBuilder,
     private router: Router,
@@ -27,20 +33,36 @@ export class NovoAnuncioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const produto = this.produtoService.obterDadosProduto();
-
-    this.Anuncio = this.builder.group({
-      imagem: this.builder.control(''),
-      nome: this.builder.control(''),
-      preco: this.builder.control(''),
-      categoria: this.builder.control(''),
-      unidadeMedida: this.builder.control(''),
-      descricao: this.builder.control(''),
-    });
-
-    const isCookieExists: boolean = this.cookieService.check('cookieEmpresa');
-    if (!isCookieExists) {
-      this.router.navigate(['/login']);
+    this.routerUrl = this.router.url
+    if (this.routerUrl === '/editar-anuncio') {
+      this.botaoTexto = 'Editar';
+      this.legenda= 'Editar anúncio';
+      this.novo = false;
+      this.produtoId = this.cookieService.get('produtoId');
+      this.produtoService.getProdutosById(this.produtoId).subscribe(
+        (produto: Produto) => {
+          this.Anuncio = this.builder.group({
+            imagem: produto.imagem,
+            nome: produto.nome,
+            preco: produto.preco,
+            categoria: ['', Validators.required],
+            unidadeMedida: ['', Validators.required],
+            descricao: produto.descricao,
+          });
+        },
+        (error) => {
+          console.error('Erro ao buscar produto:', error);
+        }
+      );
+    } else {
+      this.Anuncio = this.builder.group({
+        imagem: '',
+        nome: '',
+        preco: '',
+        categoria: '',
+        unidadeMedida: '',
+        descricao: '',
+      });
     }
   }
 
@@ -93,6 +115,24 @@ export class NovoAnuncioComponent implements OnInit {
     }
   }
 
+  EditarAnuncio(){
+    const produto = this.Anuncio.value;
+    console.log(this.Anuncio.value)
+    this.produtoService.editarProduto(this.produtoId, produto).subscribe(
+      (response) => {
+        if (response.status === 200 || response.status === 201) {
+          this.router.navigate(['/anuncios']);
+        }
+      },
+      (error) => {
+        if (error.status === 200 || error.status === 201) {
+          this.router.navigate(['/anuncios']);
+        }
+        //erro
+      }
+    );
+  }
+
   selectedFile: any = null;
 
   onFileSelected(event: any): void {
@@ -101,4 +141,15 @@ export class NovoAnuncioComponent implements OnInit {
 
   unidadeMedida: string[] = ['KG', 'G', 'Unidade'];
   categoria: string[] = ['Metal', 'Vidro', 'Plástico'];
+
+  HandleSubmit() {
+    this.routerUrl = this.router.url;
+    if (this.Anuncio.valid) {
+      if (this.routerUrl === '/novo-anuncio') {
+        this.PublicarAnuncio()
+      } else if (this.routerUrl === '/editar-anuncio') {
+        this.EditarAnuncio()
+      }
+    }
+  }
 }

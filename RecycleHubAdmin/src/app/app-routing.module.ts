@@ -25,6 +25,7 @@ const routes: Routes = [
       { path: 'anuncios', component: AnunciosComponent },
       { path: 'configuracoes', component: ConfiguracoesComponent },
       { path: 'novo-anuncio', component: NovoAnuncioComponent },
+      { path: 'editar-anuncio', component: NovoAnuncioComponent },
       { path: 'mensagem', component: ModalMensagemComponent },
       { path: 'painel', component: PainelComponent },
       { path: 'empresas', component: EmpresasComponent },

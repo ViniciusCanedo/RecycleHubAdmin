@@ -78,11 +78,10 @@ public class ProdutoController {
                 produtoExistente.setPreco(produtoAtualizado.getPreco());
                 produtoExistente.setUnidadeMedida(produtoAtualizado.getUnidadeMedida());
                 produtoExistente.setDescricao(produtoAtualizado.getDescricao());
-                produtoExistente.setStatus(produtoAtualizado.getStatus());
                 produtoExistente.setImagem(produtoAtualizado.getImagem());
 
                 produtoDao.save(produtoExistente);
-                return ResponseEntity.ok("{\"message\": \"Produto deletado com sucesso\"}");
+                return ResponseEntity.ok("{\"message\": \"Produto editado com sucesso\"}");
             } else {
                 return ResponseEntity.notFound().build();
             }
@@ -147,6 +146,21 @@ public class ProdutoController {
                 return ResponseEntity.ok(quantidadeAnuncios);
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<Produto> buscarProdutoPorId(@PathVariable Long id) {
+        try {
+            Optional<Produto> produtoOptional = produtoDao.findById(id);
+            if (produtoOptional.isPresent()) {
+                Produto produto = produtoOptional.get();
+                return ResponseEntity.ok(produto);
+            } else {
+                return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

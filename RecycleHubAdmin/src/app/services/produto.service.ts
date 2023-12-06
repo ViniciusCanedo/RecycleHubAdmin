@@ -45,4 +45,8 @@ export class ProdutoService {
   contarAnuncios(cnpj: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/produto/contarAnuncios/${cnpj}`);
   }
+
+  getProdutosById(id: any): Observable<Produto> {
+    return this.http.get<Produto>(`${this.baseUrl}/produto/buscar/${id}`);
+  }
 }

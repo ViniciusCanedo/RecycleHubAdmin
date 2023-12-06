@@ -74,4 +74,9 @@ export class AnunciosComponent {
         );
     }
   }
+
+  editarAnuncio(id: any): void {
+    this.cookieService.set('produtoId', id);
+    this.router.navigate(['/editar-anuncio']);
+  }
 }
