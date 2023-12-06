@@ -47,88 +47,10 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td>anuncio</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
-              <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Produto 1</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
-              <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Produto 1</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
-              <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Produto 1</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
-              <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Produto 1</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
-              <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-              </td>
-            </tr>
-
-
-            <tr>
-              <td>Produto 1</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
-              <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Produto 1</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
-              <td>
-                <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
-                <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>
-                <button class="btn btn-danger me-2"><i class="ri-delete-bin-6-fill"></i></button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Produto 1</td>
-              <td>Metais</td>
-              <td>Rascunho</td>
+            <tr *ngFor="let produto of produtos">
+              <td>{{ produto.nome }}</td>
+              <td> categoria </td>
+              <td>{{ produto.status }}</td>
               <td>
                 <button class="btn btn-success me-2"><i class="ri-upload-2-fill"></i></button>
                 <button class="btn btn-secondary me-2"><i class="ri-pencil-fill"></i></button>

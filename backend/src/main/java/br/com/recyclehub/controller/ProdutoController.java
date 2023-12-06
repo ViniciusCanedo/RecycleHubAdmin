@@ -166,6 +166,21 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/listarNaoPublicado/{cnpj}")
+    public ResponseEntity<List<Produto>> listarNaoPublicadoPorEmpresa(@PathVariable Long cnpj) {
+        try {
+            Optional<Empresa> empresaOptional = empresaDao.findByCnpj(cnpj);
+            if (empresaOptional.isPresent()) {
+                List<Produto> produtosNaoPublicados = produtoDao.findByEmpresaAndStatus(empresaOptional.get(), "Rascunho");
+                return ResponseEntity.ok(produtosNaoPublicados);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 
 

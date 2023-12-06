@@ -13,4 +13,5 @@ public interface ProdutoDao extends JpaRepository<Produto, Long> {
     Optional<Produto> findByNome(String nome);
     Optional<Produto> findById(long id);
     List<Produto> findByEmpresa(Empresa empresa);
+    List<Produto> findByEmpresaAndStatus(Empresa empresa, String status);
 }

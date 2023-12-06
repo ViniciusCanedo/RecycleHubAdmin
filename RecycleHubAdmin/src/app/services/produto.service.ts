@@ -49,4 +49,8 @@ export class ProdutoService {
   getProdutosById(id: any): Observable<Produto> {
     return this.http.get<Produto>(`${this.baseUrl}/produto/buscar/${id}`);
   }
+
+  getProdutosNaoPublicadoByCnpj(cnpj: string): Observable<Produto[]> {
+    return this.http.get<Produto[]>(`${this.baseUrl}/produto/listarNaoPublicado/${cnpj}`);
+  }
 }

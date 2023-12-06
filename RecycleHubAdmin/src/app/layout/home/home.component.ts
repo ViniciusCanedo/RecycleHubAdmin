@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Produto } from '../../models/produto.model';
 import { ProdutoService } from '../../services/produto.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { ProdutoService } from '../../services/produto.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  produtos: Produto[] = [];
   totalAnuncios: any = 0;
   totalVisualizacoes: any = 0;
   empresaLogadaString = this.cookieService.get('cookieEmpresa');
@@ -41,5 +43,18 @@ export class HomeComponent {
         console.error('Erro ao obter os produtos:', error);
       }
     );
+    this.carregarProdutos();
+  }
+
+  carregarProdutos(): void {
+    this.produtoService.getProdutosNaoPublicadoByCnpj(this.empresaLogada.cnpj)
+      .subscribe(
+        produtos => {
+          this.produtos = produtos;
+        },
+        error => {
+          console.error('Erro ao buscar produtos:', error);
+        }
+      );
   }
 }
