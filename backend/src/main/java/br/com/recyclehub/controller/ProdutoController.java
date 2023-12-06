@@ -112,6 +112,28 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar o status do produto");
         }
     }
+
+    @GetMapping("/somaVisualizacoes/{cnpj}")
+    public ResponseEntity<Integer> calcularSomaVisualizacoes(@PathVariable Long cnpj) {
+        try {
+            ResponseEntity<List<Produto>> response = this.listarProdutosPorEmpresa(cnpj);
+            
+            if (response.getStatusCode() == HttpStatus.OK) {
+                List<Produto> produtos = response.getBody();
+
+                int somaVisualizacoes = 0;
+                for (Produto produto : produtos) {
+                    somaVisualizacoes += produto.getVisualizacoes();
+                }
+                
+                return ResponseEntity.ok(somaVisualizacoes);
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 
 

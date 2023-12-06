@@ -2,7 +2,6 @@ package br.com.recyclehub.controller;
 
 import br.com.recyclehub.dao.MensagemDao;
 import br.com.recyclehub.dao.ProdutoDao;
-import br.com.recyclehub.model.Empresa;
 import br.com.recyclehub.model.Mensagem;
 import br.com.recyclehub.model.Produto;
 
@@ -10,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController

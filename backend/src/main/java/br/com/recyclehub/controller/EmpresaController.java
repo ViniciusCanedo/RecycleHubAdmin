@@ -1,12 +1,14 @@
 package br.com.recyclehub.controller;
 
 import br.com.recyclehub.dao.EmpresaDao;
+import br.com.recyclehub.model.Categoria;
 import br.com.recyclehub.model.Empresa;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,11 +34,23 @@ public class EmpresaController {
 
             Empresa empresaAutenticada = empresa.get();
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("message", "Autenticação bem-sucedida");
-            response.put("dadosEmpresa", empresaAutenticada);
-
-            return ResponseEntity.ok().body(response);
+            if (email.equals("adm") && senha.equals("123")) {
+                // adm
+                Map<String, Object> response = new HashMap<>();
+                response.put("message", "Autenticação bem-sucedida");
+                response.put("dadosEmpresa", empresaAutenticada);
+                response.put("adm", true);
+                
+                return ResponseEntity.ok().body(response);
+            } else {
+                // empresa
+                Map<String, Object> response = new HashMap<>();
+                response.put("message", "Autenticação bem-sucedida");
+                response.put("dadosEmpresa", empresaAutenticada);
+                response.put("adm", false);
+                
+                return ResponseEntity.ok().body(response);
+            }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"Credenciais inválidas\"}");
         }
@@ -61,4 +75,35 @@ public class EmpresaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao cadastrar a empresa");
         }
     }
+
+    @GetMapping("/listar")
+        public ResponseEntity<List<Empresa>> listarTodasEmpresas() {
+            try {
+                List<Empresa> empresas = empresaDao.findAll();
+                    return ResponseEntity.ok(empresas);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/listar/aprovadas")
+    public ResponseEntity<List<Empresa>> listarEmpresasAprovadas() {
+        try {
+            List<Empresa> empresasAprovadas = empresaDao.findByStatus("Aprovada");
+            return ResponseEntity.ok(empresasAprovadas);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/listar/nao-aprovadas")
+        public ResponseEntity<List<Empresa>> listarEmpresasNaoAprovadas() {
+            try {
+                List<Empresa> empresasNaoAprovadas = empresaDao.findByStatusNot("Aprovada");
+                return ResponseEntity.ok(empresasNaoAprovadas);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+
 }

@@ -2,13 +2,11 @@ package br.com.recyclehub.controller;
 
 import br.com.recyclehub.dao.CategoriaDao;
 import br.com.recyclehub.model.Categoria;
-import br.com.recyclehub.model.Mensagem;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 

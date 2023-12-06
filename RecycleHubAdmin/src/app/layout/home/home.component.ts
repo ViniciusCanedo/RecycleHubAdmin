@@ -10,6 +10,8 @@ import { ProdutoService } from '../../services/produto.service';
 })
 export class HomeComponent {
   totalVisualizacoes: any = 0;
+  empresaLogadaString = this.cookieService.get('cookieEmpresa');
+  empresaLogada: any = JSON.parse(this.empresaLogadaString || '{}');
   constructor(
     private cookieService: CookieService,
     private produtoService: ProdutoService,
@@ -23,7 +25,7 @@ export class HomeComponent {
     }
     const isSpecialAccess: boolean = this.cookieService.get('adm') === 'true';
     console.log('Acesso especial:', isSpecialAccess);
-    this.totalVisualizacoes = this.produtoService.obterVisualizacoes().subscribe(
+    this.totalVisualizacoes = this.produtoService.obterVisualizacoes(this.empresaLogada.cnpj).subscribe(
       (result: any) => {
         this.totalVisualizacoes = result;
       },
